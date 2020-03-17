@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/searchicon.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/searchicon.png?v=7.0.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","width":300,"display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Tony&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/page/13/index.html">
+<meta property="og:site_name" content="Tony&#39;s Blog">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tony&#39;s Blog">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/13/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Tony's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tony's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-iot-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/iot-misc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>IoT Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-risc-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/risc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>RISC Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/07/linux/kernel_review/kernel-rev-rbtree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tony's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/07/linux/kernel_review/kernel-rev-rbtree/" class="post-title-link" itemprop="url">Kernel review - red-black tree</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-07 10:22:08" itemprop="dateCreated datePublished" datetime="2018-11-07T10:22:08+08:00">2018-11-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-17 23:09:21" itemprop="dateModified" datetime="2020-03-17T23:09:21+08:00">2020-03-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel-Review/" itemprop="url" rel="index"><span itemprop="name">Kernel Review</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel-Review/Red-black-tree/" itemprop="url" rel="index"><span itemprop="name">Red-black tree</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Red-black-tree-AKA-rbTree"><a href="#Red-black-tree-AKA-rbTree" class="headerlink" title="Red-black tree AKA. rbTree"></a><strong>Red-black tree AKA. rbTree</strong></h4><p>The rbTree is a kind of self-balancing binary search tree with the following restrictions (quoted from Linux kernel lib/rbtree.c):</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * red-black trees properties:  http://en.wikipedia.org/wiki/Rbtree</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  1) A node is either red or black</span></span><br><span class="line"><span class="comment"> *  2) The root is black</span></span><br><span class="line"><span class="comment"> *  3) All leaves (NULL) are black</span></span><br><span class="line"><span class="comment"> *  4) Both children of every red node are black</span></span><br><span class="line"><span class="comment"> *  5) Every simple path from root to leaves contains the same number</span></span><br><span class="line"><span class="comment"> *     of black nodes.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  4 and 5 give the O(log n) guarantee, since 4 implies you cannot have two</span></span><br><span class="line"><span class="comment"> *  consecutive red nodes in a path and every red node is therefore followed by</span></span><br><span class="line"><span class="comment"> *  a black. So if B is the number of black nodes on every simple path (as per</span></span><br><span class="line"><span class="comment"> *  5), then the longest possible path due to 4 is 2B.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  We shall indicate color with case, where black nodes are uppercase and red</span></span><br><span class="line"><span class="comment"> *  nodes will be lowercase. Unknown color nodes shall be drawn as red within</span></span><br><span class="line"><span class="comment"> *  parentheses and have some accompanying text comment.</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<p>It is a binary search tree (BST for short), and hence it allows efficient in-order-traversal and standard BST insertion. For example, the result of inserting node (int No.10) to a tree with only a root node (int No.8) is a tree with root node (int No.8) and its right child node (int No.10).</p>
+<ul>
+<li><strong>Why using rbTree over BST?</strong></li>
+</ul>
+<p>The following example shows the difference of two trees (red nodes in rbTree are encapsulated with <em>[]</em>). BST on the left shows the height of 4, while rbTree on the right shows the height of 3.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">     BST                     rbTree</span><br><span class="line">      <span class="number">1</span>                        <span class="number">3</span></span><br><span class="line">     / \                      / \</span><br><span class="line">(null)  <span class="number">2</span>                    <span class="number">2</span>   <span class="number">4</span></span><br><span class="line">         \                  /</span><br><span class="line">          <span class="number">3</span>               [<span class="number">1</span>]</span><br><span class="line">           \</span><br><span class="line">            <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>It’s easy to derive tree operations (e.g., search, max, min, insert, delete, etc) for BST take O(n) time where n is the height of the BST, and for rbTree take O(logn) time where n is the number of nodes. From the example we could see that the big-O time for BST is O(4) while for rbTree is O(2). This proves that since rbTree has a bounded O(logN) complexity, it is better than BST which has a worst-case O(N) complexity.</p>
+<ul>
+<li><strong>Where has rbTree been used in the Linux kernel?</strong></li>
+</ul>
+<blockquote>
+<p>There are a number of red-black trees in use in the kernel. The deadline and CFQ I/O schedulers employ rbtrees to track requests; the packet CD/DVD driver does the same. The high-resolution timer code uses an rbtree to organize outstanding timer requests. The ext3 filesystem tracks directory entries in a red-black tree. Virtual memory areas (VMAs) are tracked with red-black trees, as are epoll file descriptors, cryptographic keys, and network packets in the “hierarchical token bucket” scheduler.</p>
+</blockquote>
+<p>Another usage is the task scheduler of Linux kernel. Here’s an interesting read: <a href="https://developer.ibm.com/tutorials/l-completely-fair-scheduler/" target="_blank" rel="noopener">https://developer.ibm.com/tutorials/l-completely-fair-scheduler/</a>.</p>
+<ul>
+<li><strong>A practical example of tree insertion.</strong></li>
+</ul>
+<p>The insertion algorithm to be used in rbTree balancing is explained in <a href="https://www.geeksforgeeks.org/red-black-tree-set-2-insert/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/red-black-tree-set-2-insert/</a>. Hereby, the explanation will not be reproduced, but a visual example of rbTree insertion is given below:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Insert 2, 6 and 13 into the following rbTree ([] indicates red nodes).</span></span><br><span class="line"><span class="comment"> * Leaf nodes are omitted.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">              <span class="number">7</span></span><br><span class="line">            /   \</span><br><span class="line">           <span class="number">3</span>    [<span class="number">18</span>]</span><br><span class="line">                /  \</span><br><span class="line">              <span class="number">10</span>    <span class="number">22</span></span><br><span class="line">             /  \     \</span><br><span class="line">          [<span class="number">8</span>]  [<span class="number">11</span>]   [<span class="number">26</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step1: insert 2. This is fairly simple.</span></span><br><span class="line">              <span class="number">7</span></span><br><span class="line">            /   \</span><br><span class="line">           <span class="number">3</span>    [<span class="number">18</span>]</span><br><span class="line">          /      /  \</span><br><span class="line">        [<span class="number">2</span>]    <span class="number">10</span>    <span class="number">22</span></span><br><span class="line">              /  \     \</span><br><span class="line">           [<span class="number">8</span>]  [<span class="number">11</span>]   [<span class="number">26</span>]</span><br><span class="line"><span class="comment">// Step2: insert 6. This is fairly simple.</span></span><br><span class="line">              <span class="number">7</span></span><br><span class="line">            /   \</span><br><span class="line">           <span class="number">3</span>    [<span class="number">18</span>]</span><br><span class="line">         /  \    /  \</span><br><span class="line">       [<span class="number">2</span>]  [<span class="number">6</span>] <span class="number">10</span>    <span class="number">22</span></span><br><span class="line">               /  \     \</span><br><span class="line">             [<span class="number">8</span>] [<span class="number">11</span>]  [<span class="number">26</span>]</span><br><span class="line"><span class="comment">// Step3: standard BST insert 13.</span></span><br><span class="line">               <span class="number">7</span></span><br><span class="line">             /   \</span><br><span class="line">            <span class="number">3</span>    [<span class="number">18</span>]</span><br><span class="line">          /  \    /  \</span><br><span class="line">        [<span class="number">2</span>]  [<span class="number">6</span>] <span class="number">10</span>    <span class="number">22</span></span><br><span class="line">                /  \     \</span><br><span class="line">              [<span class="number">8</span>] [<span class="number">11</span>]  [<span class="number">26</span>]</span><br><span class="line">                     \</span><br><span class="line">                     [<span class="number">13</span>]</span><br><span class="line"><span class="comment">// Step4: The parent of 13 is NOT BLACK and the uncle of 13 is RED.</span></span><br><span class="line"><span class="comment">//        Need to follow case 3a. The result is as below:</span></span><br><span class="line">                <span class="number">7</span></span><br><span class="line">              /   \</span><br><span class="line">             <span class="number">3</span>    [<span class="number">18</span>]</span><br><span class="line">           /  \    /  \</span><br><span class="line">        [<span class="number">2</span>]  [<span class="number">6</span>] [<span class="number">10</span>]  <span class="number">22</span></span><br><span class="line">                 /  \    \</span><br><span class="line">                <span class="number">8</span>   <span class="number">11</span>   [<span class="number">26</span>]</span><br><span class="line">                      \</span><br><span class="line">                     [<span class="number">13</span>]</span><br><span class="line"><span class="comment">// Step5: Now the new node becomes 10 which previous being a grandparent.</span></span><br><span class="line"><span class="comment">//        Need to follow case 3 right left situation. After right rotation,</span></span><br><span class="line"><span class="comment">//        the result is as below:</span></span><br><span class="line">                <span class="number">7</span></span><br><span class="line">              /   \</span><br><span class="line">             <span class="number">3</span>    [<span class="number">10</span>]</span><br><span class="line">           /  \    /  \</span><br><span class="line">         [<span class="number">2</span>]  [<span class="number">6</span>] <span class="number">8</span>   [<span class="number">18</span>]</span><br><span class="line">                      /  \</span><br><span class="line">                     <span class="number">11</span>   <span class="number">22</span>  </span><br><span class="line">                       \    \</span><br><span class="line">                      [<span class="number">13</span>]  [<span class="number">26</span>]</span><br><span class="line"><span class="comment">// Step6: New the new node (i.e., 10) enters case 3 right right situation.</span></span><br><span class="line"><span class="comment">//        After left rotation and color swapping, the result is as below:</span></span><br><span class="line">               <span class="number">10</span></span><br><span class="line">              /   \</span><br><span class="line">            [<span class="number">7</span>]    [<span class="number">18</span>]</span><br><span class="line">           /  \    /   \</span><br><span class="line">          <span class="number">3</span>    <span class="number">8</span>  <span class="number">11</span>    <span class="number">22</span></span><br><span class="line">        /  \        \     \</span><br><span class="line">      [<span class="number">2</span>]  [<span class="number">6</span>]      [<span class="number">13</span>]   [<span class="number">26</span>]</span><br></pre></td></tr></table></figure>
+
+<p>The deletion algorithm described in <a href="https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/</a> is not as straightforward as the insertion algorithm. The descriptions from <a href="http://gauss.ececs.uc.edu/RedBlack/redblack.html" target="_blank" rel="noopener">http://gauss.ececs.uc.edu/RedBlack/redblack.html</a> could provide some help.</p>
+<ul>
+<li><strong>An example of using rbTree lib in the kernel.</strong></li>
+</ul>
+<p>An example of using kernel implementation of rbTree could refer to lib/rbtree_test.c, and an online material <a href="http://www.infradead.org/~mchehab/kernel_docs/unsorted/rbtree.html" target="_blank" rel="noopener">http://www.infradead.org/~mchehab/kernel_docs/unsorted/rbtree.html</a>. A remarkable thing about the implementation is the code maintains flexibility to users. Users could define own data structures which includes the <em>rb_node</em> structure, and use <em>container_of()</em> or <em>rb_entry()</em> (a wrapper of container_of) to access user defined data. For example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mytype</span> &#123;</span></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">rb_node</span> <span class="title">node</span>;</span></span><br><span class="line">      <span class="keyword">char</span> *keystring;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>When searching a value in a rbTree, a search function should be defined. <em>rb_test.c</em> does not implement a search method. Here’s an example from the online material. The method <em>container_of</em> is used for accessing user defined <em>key</em>, which to be based on to traverse nodes like a binary tree does.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">struct mytype *<span class="title">my_search</span><span class="params">(struct rb_root *root, <span class="keyword">char</span> *<span class="built_in">string</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">rb_node</span> *<span class="title">node</span> = <span class="title">root</span>-&gt;<span class="title">rb_node</span>;</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (node) &#123;</span><br><span class="line">              <span class="class"><span class="keyword">struct</span> <span class="title">mytype</span> *<span class="title">data</span> = <span class="title">container_of</span>(<span class="title">node</span>, <span class="title">struct</span> <span class="title">mytype</span>, <span class="title">node</span>);</span></span><br><span class="line">              <span class="keyword">int</span> result;</span><br><span class="line"></span><br><span class="line">              result = <span class="built_in">strcmp</span>(<span class="built_in">string</span>, data-&gt;keystring);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span> (result &lt; <span class="number">0</span>)</span><br><span class="line">                      node = node-&gt;rb_left;</span><br><span class="line">              <span class="keyword">else</span> <span class="keyword">if</span> (result &gt; <span class="number">0</span>)</span><br><span class="line">                      node = node-&gt;rb_right;</span><br><span class="line">              <span class="keyword">else</span></span><br><span class="line">                      <span class="keyword">return</span> data;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Inserting a node requires a user defined inserting method. The kernel implementation provides node linking (rb_link_node(). see the code below) and tree re-balancing (rb_insert_color()).</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">rb_link_node</span><span class="params">(struct rb_node *node, struct rb_node *parent,</span></span></span><br><span class="line"><span class="function"><span class="params">				struct rb_node **rb_link)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	node-&gt;__rb_parent_color = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)parent;</span><br><span class="line">	node-&gt;rb_left = node-&gt;rb_right = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	*rb_link = node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The method rb_link_node() store a copy of the parent ptr with the format of <em>unsigned long</em>. When reading rb_insert_color(), we could see at the beginning a method, namely <em>rb_red_parent()</em> is called. As the new node is initially colored in red (not necessarily store the value in RAM), and hence the function’s name could be interpreted like getting the parent from the new red node. The kernel implementation also provides removing and replacing functions. One could basically search for the node and call rb_erase() or rb_replace_node() to achieve removing and replacing respectively. Examples of erasing and replacing are omitted. Hereby, we take a closer look at the insertion and deletion. The insertion code is duplicated below for reading convenience:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> __always_inline <span class="keyword">void</span></span><br><span class="line">__rb_insert(struct rb_node *node, struct rb_root *root,</span><br><span class="line">	    <span class="keyword">void</span> (*augment_rotate)(struct rb_node *old, struct rb_node *<span class="keyword">new</span>))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">rb_node</span> *<span class="title">parent</span> = <span class="title">rb_red_parent</span>(<span class="title">node</span>), *<span class="title">gparent</span>, *<span class="title">tmp</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * Loop invariant: node is red</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 * If there is a black parent, we are done.</span></span><br><span class="line"><span class="comment">		 * Otherwise, take some corrective action as we don't</span></span><br><span class="line"><span class="comment">		 * want a red root or two consecutive red nodes.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">if</span> (!parent) &#123;</span><br><span class="line">			rb_set_parent_color(node, <span class="literal">NULL</span>, RB_BLACK);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (rb_is_black(parent))</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">		gparent = rb_red_parent(parent);</span><br><span class="line"></span><br><span class="line">		tmp = gparent-&gt;rb_right;</span><br><span class="line">		<span class="keyword">if</span> (parent != tmp) &#123;	<span class="comment">/* parent == gparent-&gt;rb_left */</span></span><br><span class="line">			<span class="keyword">if</span> (tmp &amp;&amp; rb_is_red(tmp)) &#123;</span><br><span class="line">				<span class="comment">/*</span></span><br><span class="line"><span class="comment">				 * Case 1 - color flips</span></span><br><span class="line"><span class="comment">				 *</span></span><br><span class="line"><span class="comment">				 *       G            g</span></span><br><span class="line"><span class="comment">				 *      / \          / \</span></span><br><span class="line"><span class="comment">				 *     p   u  --&gt;   P   U</span></span><br><span class="line"><span class="comment">				 *    /            /</span></span><br><span class="line"><span class="comment">				 *   n            n</span></span><br><span class="line"><span class="comment">				 *</span></span><br><span class="line"><span class="comment">				 * However, since g's parent might be red, and</span></span><br><span class="line"><span class="comment">				 * 4) does not allow this, we need to recurse</span></span><br><span class="line"><span class="comment">				 * at g.</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				rb_set_parent_color(tmp, gparent, RB_BLACK);</span><br><span class="line">				rb_set_parent_color(parent, gparent, RB_BLACK);</span><br><span class="line">				node = gparent;</span><br><span class="line">				parent = rb_parent(node);</span><br><span class="line">				rb_set_parent_color(node, parent, RB_RED);</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			tmp = parent-&gt;rb_right;</span><br><span class="line">			<span class="keyword">if</span> (node == tmp) &#123;</span><br><span class="line">				<span class="comment">/*</span></span><br><span class="line"><span class="comment">				 * Case 2 - left rotate at parent</span></span><br><span class="line"><span class="comment">				 *</span></span><br><span class="line"><span class="comment">				 *      G             G</span></span><br><span class="line"><span class="comment">				 *     / \           / \</span></span><br><span class="line"><span class="comment">				 *    p   U  --&gt;    n   U</span></span><br><span class="line"><span class="comment">				 *     \           /</span></span><br><span class="line"><span class="comment">				 *      n         p</span></span><br><span class="line"><span class="comment">				 *</span></span><br><span class="line"><span class="comment">				 * This still leaves us in violation of 4), the</span></span><br><span class="line"><span class="comment">				 * continuation into Case 3 will fix that.</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				tmp = node-&gt;rb_left;</span><br><span class="line">				WRITE_ONCE(parent-&gt;rb_right, tmp);</span><br><span class="line">				WRITE_ONCE(node-&gt;rb_left, parent);</span><br><span class="line">				<span class="keyword">if</span> (tmp)</span><br><span class="line">					rb_set_parent_color(tmp, parent,</span><br><span class="line">							    RB_BLACK);</span><br><span class="line">				rb_set_parent_color(parent, node, RB_RED);</span><br><span class="line">				augment_rotate(parent, node);</span><br><span class="line">				parent = node;</span><br><span class="line">				tmp = node-&gt;rb_right;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			 * Case 3 - right rotate at gparent</span></span><br><span class="line"><span class="comment">			 *</span></span><br><span class="line"><span class="comment">			 *        G           P</span></span><br><span class="line"><span class="comment">			 *       / \         / \</span></span><br><span class="line"><span class="comment">			 *      p   U  --&gt;  n   g</span></span><br><span class="line"><span class="comment">			 *     /                 \</span></span><br><span class="line"><span class="comment">			 *    n                   U</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			WRITE_ONCE(gparent-&gt;rb_left, tmp); <span class="comment">/* == parent-&gt;rb_right */</span></span><br><span class="line">			WRITE_ONCE(parent-&gt;rb_right, gparent);</span><br><span class="line">			<span class="keyword">if</span> (tmp)</span><br><span class="line">				rb_set_parent_color(tmp, gparent, RB_BLACK);</span><br><span class="line">			__rb_rotate_set_parents(gparent, parent, root, RB_RED);</span><br><span class="line">			augment_rotate(gparent, parent);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			tmp = gparent-&gt;rb_left;</span><br><span class="line">			<span class="keyword">if</span> (tmp &amp;&amp; rb_is_red(tmp)) &#123;</span><br><span class="line">				<span class="comment">/* Case 1 - color flips */</span></span><br><span class="line">				rb_set_parent_color(tmp, gparent, RB_BLACK);</span><br><span class="line">				rb_set_parent_color(parent, gparent, RB_BLACK);</span><br><span class="line">				node = gparent;</span><br><span class="line">				parent = rb_parent(node);</span><br><span class="line">				rb_set_parent_color(node, parent, RB_RED);</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			tmp = parent-&gt;rb_left;</span><br><span class="line">			<span class="keyword">if</span> (node == tmp) &#123;</span><br><span class="line">				<span class="comment">/* Case 2 - right rotate at parent */</span></span><br><span class="line">				tmp = node-&gt;rb_right;</span><br><span class="line">				WRITE_ONCE(parent-&gt;rb_left, tmp);</span><br><span class="line">				WRITE_ONCE(node-&gt;rb_right, parent);</span><br><span class="line">				<span class="keyword">if</span> (tmp)</span><br><span class="line">					rb_set_parent_color(tmp, parent,</span><br><span class="line">							    RB_BLACK);</span><br><span class="line">				rb_set_parent_color(parent, node, RB_RED);</span><br><span class="line">				augment_rotate(parent, node);</span><br><span class="line">				parent = node;</span><br><span class="line">				tmp = node-&gt;rb_left;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">/* Case 3 - left rotate at gparent */</span></span><br><span class="line">			WRITE_ONCE(gparent-&gt;rb_right, tmp); <span class="comment">/* == parent-&gt;rb_left */</span></span><br><span class="line">			WRITE_ONCE(parent-&gt;rb_left, gparent);</span><br><span class="line">			<span class="keyword">if</span> (tmp)</span><br><span class="line">				rb_set_parent_color(tmp, gparent, RB_BLACK);</span><br><span class="line">			__rb_rotate_set_parents(gparent, parent, root, RB_RED);</span><br><span class="line">			augment_rotate(gparent, parent);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Here are some notes on the insertion <em>__rb_insert()</em> method. Conditions from line 15 to line 19 determine whether the new node is a root node or its parent is a black node. Since adding a red node under a parent in black will suffice all invariants, the loop should end. Next, as the new node’s parent is a red node, so we need to know the color of grandparent to perform recoloring and rotating. The line “gparent = rb_red_parent(parent)” is destined to find a valid grandparent (i.e., not NULL), as a child node in red of a red parent always has a black grandparent, and this step should never be reached if a red node to be inserted to a black parent. Now we need to know if the parent is a left child a the grandparent by the conditions in line 24 (rb_left) and line 89 (rb_right). Next, there are three sub-cases under the condition of line 24, and they are: </p>
+<ol>
+<li>The new node’s uncle is red in line 25, since “gparent-&gt;rb_right” is the uncle not the parent.</li>
+<li>The new node’s uncle is black and it is the right child in line 48.</li>
+<li>The new node’s uncle is black and it is the left child.</li>
+</ol>
+<hr>
+<h4 id="Appendix-algorithm-introduction-to-rbTree"><a href="#Appendix-algorithm-introduction-to-rbTree" class="headerlink" title="Appendix: algorithm introduction to rbTree"></a><strong>Appendix: algorithm introduction to rbTree</strong></h4><p>This section provides supplemental information for rbTree. Most of the materials are based on the slides in  <a href="https://www.cs.purdue.edu/homes/ayg/CS251/slides/chap13a.pdf" target="_blank" rel="noopener">https://www.cs.purdue.edu/homes/ayg/CS251/slides/chap13a.pdf</a> and <a href="http://gauss.ececs.uc.edu/RedBlack/redblack.html" target="_blank" rel="noopener">http://gauss.ececs.uc.edu/RedBlack/redblack.html</a>. The red-black tree could be derived from 2-3-4 tree, in which a node could have 1/2/3 keys and have 2/3/4 children respectively. The following shows an 2-3-4 tree.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   <span class="number">2</span><span class="number">-3</span><span class="number">-4</span> tree</span><br><span class="line"></span><br><span class="line">       n</span><br><span class="line">     /    \</span><br><span class="line">   c,i      t </span><br><span class="line"> /  |  \    /  \ </span><br><span class="line">a  f,g  l  p,r  x</span><br></pre></td></tr></table></figure>
+
+<p>2-3-4 trees have the advantages of a balanced distribution and a bounded search time (<em>O(logN)</em>). However, they have a drawback of different node structures. To leverage the advantage and to achieve same node structures, red-black tree emerges. The interpretation of rbTree in Purdue’s slides is a bit different than what we normally perceive, as the slides use colored edges instead of nodes. We keep the sense of colored node to be aligned with the kernel implementation.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/TonyZhaoyu/" title="GitHub &rarr; https://github.com/TonyZhaoyu/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('Copy');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

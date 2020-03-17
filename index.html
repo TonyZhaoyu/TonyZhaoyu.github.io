@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/searchicon.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/searchicon.png?v=7.0.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","width":300,"display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Tony&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Tony&#39;s Blog">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tony&#39;s Blog">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Tony's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tony's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home menu-item-active">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-iot-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/iot-misc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>IoT Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-risc-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/risc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>RISC Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/04/top-posts/firmware_intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tony's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/10/04/top-posts/firmware_intro/" class="post-title-link" itemprop="url">Firmware 101</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-10-04 10:19:10" itemprop="dateCreated datePublished" datetime="2016-10-04T10:19:10+08:00">2016-10-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-17 23:09:21" itemprop="dateModified" datetime="2020-03-17T23:09:21+08:00">2020-03-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Top-Posts/" itemprop="url" rel="index"><span itemprop="name">Top Posts</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="http://www.element14.com/community/servlet/JiveServlet/showImage/2-84952-167466/bbb-top-white.png" width="600">
+
+<p><em>Coutesy of Beaglebone Black</em>: <a href="https://beagleboard.org/black/" target="_blank" rel="noopener">https://beagleboard.org/black/</a>.</p>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a><strong>Introduction</strong></h4><p>It has always been a pleasure to say I am an embedded engineer (honestly, just to satisfy my vanity), even though people may have no idea about the title. Only an experienced engineer working for years in this field could they know how complex the term ’embedded system’ is able to convey. Anyway, I have an interesting thought, which is to note down the understanding of this term chronologically. It would be fun to view the improvements as experience grows in a timely manner. Hopefully, I won’t be too embarrassed when look back.</p>
+<hr>
+<h4 id="Version-0-2-Date-04-10-2016"><a href="#Version-0-2-Date-04-10-2016" class="headerlink" title="Version 0.2, Date: 04/10/2016"></a><strong>Version 0.2, Date: 04/10/2016</strong></h4><p>This version provides more understandings on firmware. The term ‘firmware’ has been confusing me since I was aware of this term. What confused me most is I did not bear a clear view after reading tons &amp; tons of online materials. Until now, I think I might have a conclusion on this term, and it turned out what Wikipedia explained started to make sense now. Some old-school engineers would prefer the definition of firmware as a piece of software running on a micro-controller (dating back to the timeline when micro-processor was not popular). Take remote controller as an example: the firmware reads the input from buttons and translates the digital signal to a format that obeys infrared protocol.</p>
+<p>What about the definition nowadays? We are living in a world where embedded systems are dramatically grown: 8-bit micro-controller has been expended to 32-bit; micro-processor has been doing tasks that originally managed by PCs. There is no excuse for firmware expanding its scale to absorb latest growth in embedded systems. So, moment of truth:</p>
+<p>The term firmware is mostly used in embedded systems. “Firmware is held in non-volatile devices such as ROM, EPROM or flash memory.” (Wikipedia firmware definition) Firmware refers to a piece of software running on micro-controller or micro-processor.<br>The term firmware is functional-oriented rather platform-oriented. An example of firmware on a micro-controller: a ZigBee end-device has the ability to connect to the ZigBee gateway and communicate with any node within a mesh network. Thanks to the network stack, developers could easily handle their business logic with APIs provided by the stack. Hereby, the network stack is ‘firmware’. ZigBee chip vendors provide IC with RF communication and physical connections (UART/SPI/I2C etc.) to MCUs. The killer function relies on that piece of firmware which handles routing info, IC properties status etc. To summarize, a quick Q&amp;A could be applied: Does the firmware talks to hardware? Yes, it communicates with the external IC with SPI/UART/I2C. Does the firmware provides APIs to the upper layer logic? Yes indeed.</p>
+<p>An example of firmware on a micro-processor: a ZigBee gateway running on OpenWrt Linux is capable of coordinating all the end-devices in the mesh network, and could allow cloud connectivity. OpenWrt is a widely used open-source Linux on routers. It could be tailored and embedded on multiple platforms (either ARM or MIPS based) for easy Wi-Fi routing. However, it is firmware developers’ responsibility to enable ZigBee gateway functions on such a gateway. Such piece of firmware may no longer serve as the software directly communicates to the hardware, since Linux kernel separates such a communication and leaves the firmware running on the application/middleware layer. Hence, an update of such firmware may not necessarily be correlated to Linux kernel upgrade.</p>
+<hr>
+<h4 id="Version-0-3-Date-02-01-2017"><a href="#Version-0-3-Date-02-01-2017" class="headerlink" title="Version 0.3, Date: 02/01/2017"></a><strong>Version 0.3, Date: 02/01/2017</strong></h4><p>I’ve always been thinking about doing a half-year summary. Hence, here it is. 6-month has passed since I stepped my feet into wireless industry. I guess I’ve witnessed a specific angle of ‘firmware’ development during some hands-on application creation. I could describe the angle as wireless network firmware development. It looks a bit mouthful, yet it is physically true and even appears on Google’s job list.</p>
+<p>I’ve been working on ZigBee related projects and hence got a scratch on the development process. Wireless chip vendors usually offer network stacks to developers for easy application creation. Such stacks cover the behavior of multiple layers and usually need to conform with standards like IEEE 802.15.4, ZigBee or Thread. The interaction between application layer and such stacks are through APIs (i.e, callback functions) offered by stacks.</p>
+<p>This leads to a result in which the application is highly user-experience dependent with tiny bit lower-layer considerations. Take a ZigBee application as an example: a user wants a ZigBee end-node to report its temperature value periodically. So, an application engineer sent a reporting command at the application layer, expecting everything is all set. The engineer would care nothing about MAC layer retries under a noisy RF environment.</p>
+<p>Does such an application creation relate to firmware development? The answer is 100 percent positive. The stacks do a good job on wireless network management. However they wouldn’t explicitly define the behavior of hardware interactions, like reading values from an ADC or blinking a LED through a GPIO. These hardware interactions are tied to embedded development, and hence application creation based on which is still part of firmware development. Bingo !!!</p>
+<p>There is one disadvantage though. The maintenance pressure of network stacks is totally based on chip vendors as the source wouldn’t be opened by them. Once the user-experience of the application is not as good as expected, it is now “Huston, we have a problem” time. Application engineers rely on ‘Huston’ to fix its stack bug (or may not be a bug since by nature it is what it is), while listening to some threats like “Fixing such bugs would result in standards violations” blah blah blah. If one doesn’t want a project to hang up, workarounds could be created. Workarounds may be a pain source in the future if the stack hole is filled by ‘Huston’. You may find yourself in an embarrassing situation where you need to eliminate your workarounds in the firmware and  good luck with that.</p>
+<hr>
+<h4 id="Version-0-4-Date-30-08-2018"><a href="#Version-0-4-Date-30-08-2018" class="headerlink" title="Version 0.4, Date: 30/08/2018"></a><strong>Version 0.4, Date: 30/08/2018</strong></h4><p>This gonna be a short version. It has been a really long time since last version. During this period of missing, I was impressed by the need for fundamental knowledge during coding. From my observation, most MCU based projects are extremely careful about HEAP memory usage. Like, array usage spreads out everywhere in C files. Although such an observation is not always true to powerful MCUs like MT7697’s cortex-M4 with a 200KB RAM. When dealing with IoT data (e.g., from MQTT), <em>malloc</em> would be used.</p>
+<p>The point is the C code in every production-ready project involves tons of fundamental knowledge. The MACRO usage, string usage, compiler tricks etc. I benefit from reading books <em>SEI CERT C Coding Standard</em> and <em>CERT C Programming Languages Secure Coding Standard</em> in which many unfamiliar pieces of C coding are presented. For the projects I was working with, ADT (abstract data-types) were not heavily addressed. The commonly used types are arrays and linked-list. The careful usage of <em>malloc</em> restricts the usage of complex data types like trees. Also, there’s no need for deploying a complex data type if a simple one suffices. I do have a copy of MISRA-C guideline, and hopefully I could benefit more from reading.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/TonyZhaoyu/" title="GitHub &rarr; https://github.com/TonyZhaoyu/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('Copy');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

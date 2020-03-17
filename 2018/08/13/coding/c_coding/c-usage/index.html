@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/searchicon.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/searchicon.png?v=7.0.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","width":300,"display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Malloc an array of pointersConsider a situation where an array needs to be created during run-time, and in this array, pointers will be stored. The following code shows a structure definition, whose p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Techniques in C and compiler">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/coding/c_coding/c-usage/index.html">
+<meta property="og:site_name" content="Tony&#39;s Blog">
+<meta property="og:description" content="Malloc an array of pointersConsider a situation where an array needs to be created during run-time, and in this array, pointers will be stored. The following code shows a structure definition, whose p">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-17T15:09:21.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Techniques in C and compiler">
+<meta name="twitter:description" content="Malloc an array of pointersConsider a situation where an array needs to be created during run-time, and in this array, pointers will be stored. The following code shows a structure definition, whose p">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/13/coding/c_coding/c-usage/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Techniques in C and compiler | Tony's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tony's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-iot-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/iot-misc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>IoT Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-risc-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/risc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>RISC Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/coding/c_coding/c-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tony's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Techniques in C and compiler
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-13 11:52:06" itemprop="dateCreated datePublished" datetime="2018-08-13T11:52:06+08:00">2018-08-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-17 23:09:21" itemprop="dateModified" datetime="2020-03-17T23:09:21+08:00">2020-03-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/C-Knowledge-Base/" itemprop="url" rel="index"><span itemprop="name">C Knowledge Base</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/C-Knowledge-Base/Malloc-an-array-of-pointers/" itemprop="url" rel="index"><span itemprop="name">Malloc an array of pointers</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Malloc-an-array-of-pointers"><a href="#Malloc-an-array-of-pointers" class="headerlink" title="Malloc an array of pointers"></a><strong>Malloc an array of pointers</strong></h4><p>Consider a situation where an array needs to be created during run-time, and in this array, pointers will be stored. The following code shows a structure definition, whose pointer will be stored in an array.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">testStruct</span> &#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>  bla;</span><br><span class="line">  <span class="keyword">uint16_t</span> blabla;</span><br><span class="line">&#125; TestStruct;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> TestStruct * testStructPtr;</span><br></pre></td></tr></table></figure>
+
+<p>Here’s the code of mallocin’ the array.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ARRAY_SIZE (5)</span></span><br><span class="line"></span><br><span class="line">testStructPtr * <span class="built_in">array</span> = (testStructPtr *)<span class="built_in">malloc</span>(ARRAY_SIZE * <span class="keyword">sizeof</span>(testStructPtr));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Play-with-GCC"><a href="#Play-with-GCC" class="headerlink" title="Play with GCC"></a><strong>Play with GCC</strong></h4><p>Sometimes we found C code reading is not fun at all, especially the code with many strange symbols. Here’s an example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__attribute__((weak)) <span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> bar)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Blablabla</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The symbol <em><strong>attribute</strong>((weak))</em> is specifically used by GCC for compilation and linking. There are tons of such symbols, but I will be focusing on the commonly used one. For many coders, the options that come up with <em>gcc</em> may be another mysterious land. For example, <em>–wrap</em>.</p>
+<ul>
+<li>Weak attribute symbol.</li>
+</ul>
+<p>By default, when we declare the implementation of a function in a C file, then the function symbol is defined as a strong symbol. Any attempt to redefine this strong symbol will lead to the well know error you may know: the multiple definitions of error.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libhello.a(hello.c.o): In <span class="keyword">function</span> <span class="string">'open_i2c'</span>:</span><br><span class="line">lib/hello.c:15: multiple definition of `open_i2c<span class="string">'</span></span><br><span class="line"><span class="string">tests_do_something.c.o:tests_do_something.c:12: first defined here</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Weak symbols, however, can be redefined.</strong> This is exactly what we need in order to test that our high-level function correctly calls our low-level function, while these to functions being implemented in the same source file.</p>
+</blockquote>
+<p>Reference: <a href="https://blog.microjoe.org/2017/unit-tests-c-cmocka-coverage-cmake.html#declaring-tests" target="_blank" rel="noopener">https://blog.microjoe.org/2017/unit-tests-c-cmocka-coverage-cmake.html#declaring-tests</a>.</p>
+<ul>
+<li>Wrap functions.</li>
+</ul>
+<p>We could use a GCC linker option named ‘–wrap=….’ to tell the linker which function to be linked. Since you are more likely to call gcc instead of ld in your compilation process, you can tell gcc to pass the –wrap option to ld by passing the –Wl,–wrap=… argument to GCC.</p>
+<p>The –wrap=open notation asks GCC to make every call to the open functon to reach the __wrap_open function instead. If for whatever reason you need to use the real open function after this option is passed, then you can call the __real_open function (after declaring its prototype).</p>
+<p>For example, we want to mock the system call <em>close</em> which is called in a function of a C file.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src.c */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We write a test file to test foo() but don’t actually want to trigger a system call. In the test file, we could do:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* test.c */</span></span><br><span class="line"><span class="keyword">int</span> __wrap_close(<span class="keyword">int</span> fd)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// The following line is CMocka based.</span></span><br><span class="line">  check_expected(fd);</span><br><span class="line">  <span class="keyword">return</span> mock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>When we use gcc to compile and link, we need to specify something like the following:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc src.c test.c -Wl,--wrap=close -o <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>Reference: <a href="https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_node/ld_3.html" target="_blank" rel="noopener">https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_node/ld_3.html</a>.</p>
+<hr>
+<h4 id="Function-pointers"><a href="#Function-pointers" class="headerlink" title="Function pointers"></a><strong>Function pointers</strong></h4><p>Function pointers have been widely used in C/C++ SDKs. In SDKs, they are usually wrapped into hook functions. Take the famous uC/OS kernel as an example, the following screenshot quoted one of the customer stories <a href="https://www.micrium.com/about/customer-stories/vasamed/" target="_blank" rel="noopener">original link</a>.</p>
+<blockquote>
+<p>The power-management features of uC/OS can keep a device running for years without a battery change. These features include hook functions for initiating low-power modes, support for a dynamic tick rate, and even tick-less operations.</p>
+</blockquote>
+<p>To exemplify the usage of function pointers (or hook functions), open-source libraries are to be used to serve our case. cJSON library is a C/C++ open-source library dealing with JSON data <a href="https://github.com/DaveGamble/cJSON" target="_blank" rel="noopener">Github link</a>. In cJSON.h, line 57 ~ 60 defines a hook function which allows users to enable specified ‘malloc’ and ‘free’ methods. The code snippets are shown below:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">cJSON_Hooks</span> &#123;</span></span><br><span class="line">      <span class="keyword">void</span> *(*malloc_fn)(<span class="keyword">size_t</span> sz);</span><br><span class="line">      <span class="keyword">void</span> (*free_fn)(<span class="keyword">void</span> *ptr);</span><br><span class="line">&#125; cJSON_Hooks;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Supply malloc, realloc and free functions to cJSON */</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">cJSON_InitHooks</span><span class="params">(cJSON_Hooks* hooks)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>How cJSON_InitHooks() method is being used in cJSON.c? Line 46 ~ 47 defines the function pointer variables as below:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> *(*cJSON_malloc)(<span class="keyword">size_t</span> sz) = <span class="built_in">malloc</span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">void</span> <span class="params">(*cJSON_free)</span><span class="params">(<span class="keyword">void</span> *ptr)</span> </span>= <span class="built_in">free</span>;</span><br></pre></td></tr></table></figure>
+
+<p>These variables, by default are assigned to malloc and free function pointer provided by stdlib.h. As such, even if cJSON_InitHooks() method is never been called, the rest of cJSON’s methods are still functioning. As for user specified functions, the body of cJSON_InitHooks is presented as below:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cJSON_InitHooks</span><span class="params">(cJSON_Hooks* hooks)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!hooks) &#123; <span class="comment">/* Reset hooks */</span></span><br><span class="line">        cJSON_malloc = <span class="built_in">malloc</span>;</span><br><span class="line">        cJSON_free = <span class="built_in">free</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cJSON_malloc = (hooks-&gt;malloc_fn)?hooks-&gt;malloc_fn:<span class="built_in">malloc</span>;</span><br><span class="line">    cJSON_free = (hooks-&gt;free_fn)?hooks-&gt;free_fn:<span class="built_in">free</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Pretty smart huh? Here is a dummy example of using such a hook function. NB: this example makes no sense in real applications.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"cJSON.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @brief: self-defined malloc method.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">selfdefMallocMethod</span><span class="params">(<span class="keyword">size_t</span> sz)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"self-defined malloc function is invoked.\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">malloc</span>(sz);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @brief: self-defined free method.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selfdefFreeMethod</span><span class="params">(<span class="keyword">void</span> *ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"self-defined free function is invoked.\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">free</span>(ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cJSON_Hooks *myHookMethods = (cJSON_Hooks *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(cJSON_Hooks));</span><br><span class="line">    myHookMethods-&gt;malloc_fn = selfdefMallocMethod;</span><br><span class="line">    myHookMethods-&gt;free_fn = selfdefFreeMethod;</span><br><span class="line">    cJSON_InitHooks(myHookMethods);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *dummyStr = <span class="string">"&#123;\"please_parse_me\":\"Okay\"&#125;"</span></span><br><span class="line">    cJSON *dummyJSON = cJSON_Parse(dummyStr);</span><br><span class="line">    cJSON_Delete(dummyJSON);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You should be able to see several printouts of “self-defined malloc method is invoked” when cJSON_Parse method is called, and several printouts of “self-defined free method is invoked” when cJSON_Delete is called.</p>
+<p>Hereby, paho-mqtt-client <a href="https://github.com/eclipse/paho.mqtt.c" target="_blank" rel="noopener">Github link</a> library has been used as another example. Paho-mqtt-client library is much more complex than cJSON library. To begin with, one needs to include the top-level MQTTClient.h to initialize an MQTT client and instantiate hook functions. Some understanding barriers need to be removed beforehand:</p>
+<ol>
+<li>In MQTTClient.h, what is this macro ‘DLLExport’? DLLExport is defined by line 109 ~ 115. Since only Unix platform is considered, according to line 114, ‘DLLExport’ is defined as below:</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DLLExport __attribute__ ((visibility (&amp;default)))</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><strong>attribute</strong> ((visibility (“default”)))</strong> could be referred to this link (<a href="http://gcc.gnu.org/wiki/Visibility" target="_blank" rel="noopener">http://gcc.gnu.org/wiki/Visibility</a>). Herein, I duplicate some of the explanations: “Default visibility is the normal case for ELF. This value is available for the visibility attribute to override other options that may change the assumed visibility of symbols“.  In short, it indicates similar meaning as ‘export’. What are the ways to define a hook function (function pointer)? Firstly, as described in part I, using the keyword ‘typedef ‘ with an explicit ‘* ‘ prefix could serve the case. e.g., typedef void (* dummyMethod) (int argument1); Secondly, just like the way in MQTTClient.h, the explicit ‘*’ prefix no longer exists. e.g., line 334:</p>
+<ol start="2">
+<li>What are the ways to define a hook function (function pointer)? Firstly, as described in part I, using the keyword ‘typedef ‘ with an explicit ‘* ‘ prefix could serve the case. e.g., typedef void (* dummyMethod) (int argument1); Secondly, just like the way in MQTTClient.h, the explicit ‘*’ prefix no longer exists. e.g., line 334:</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">void</span> <span class="title">MQTTClient_connectionLost</span><span class="params">(<span class="keyword">void</span>* context, <span class="keyword">char</span>* cause)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>As such, MQTTClient_connectionLost could be used as a variable. Such a variable could be found in line 363:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DLLExport <span class="keyword">int</span> <span class="title">MQTTClient_setCallbacks</span><span class="params">(MQTTClient handle, <span class="keyword">void</span>* context, MQTTClient_connectionLost* cl,</span></span></span><br><span class="line"><span class="function"><span class="params">MQTTClient_messageArrived* ma, MQTTClient_deliveryComplete* dc)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>For more details, please refer to the following <a href="https://stackoverflow.com/questions/1591361/understanding-typedefs-for-function-pointers-in-c" target="_blank" rel="noopener">link</a>.<br>An example of client initialisation and MQTTClient_setCallbacks instantiation is presented as the following code snippets.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"MQTTClient.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delivered</span><span class="params">(<span class="keyword">void</span> *context, MQTTClient_deliveryToken dt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Message with token value %d delivery confirmed\n"</span>, dt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgarrvd</span><span class="params">(<span class="keyword">void</span> *context, <span class="keyword">char</span> *topicName, <span class="keyword">int</span> topicLen, MQTTClient_message *message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *payloadptr = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(message-&gt;payloadlen + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(payloadptr,<span class="number">0</span>,message-&gt;payloadlen + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(payloadptr,(<span class="keyword">char</span> *)(message-&gt;payload));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Message arrived\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"topic: %s\n"</span>, topicName);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Message payload: %s\n"</span>,payloadptr);</span><br><span class="line">    <span class="built_in">free</span>(payloadptr);</span><br><span class="line">    MQTTClient_freeMessage(&amp;message);</span><br><span class="line">    MQTTClient_free(topicName);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">connlost</span><span class="params">(<span class="keyword">void</span> *context, <span class="keyword">char</span> *cause)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\nConnection lost\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"cause: %s\n"</span>, cause);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    MQTTClient client;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MQTTClient_setCallbacks(client, <span class="literal">NULL</span>, connlost, msgarrvd, delivered);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Print-pointer-values"><a href="#Print-pointer-values" class="headerlink" title="Print pointer values"></a><strong>Print pointer values</strong></h4><p>This may not be a trick, but something that’s worth noting.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pointerFuncA</span><span class="params">(<span class="keyword">int</span>* iptr)</span></span>&#123;</span><br><span class="line"><span class="comment">/*Print the value pointed to by iptr*/</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Value:  %d\n"</span>, *iptr );</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Print the address pointed to by iptr*/</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Value:  %p\n"</span>, iptr );</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Print the address of iptr itself*/</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Value:  %p\n"</span>, &amp;iptr );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">1234</span>;</span><br><span class="line"><span class="keyword">int</span>* foo = &amp;i;</span><br><span class="line">pointerFuncA(foo);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Output:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Value:  <span class="number">1234</span></span><br><span class="line">Value:  <span class="number">0xffe2ac6c</span></span><br><span class="line">Value:  <span class="number">0xffe2ac44</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Muli-line-function-MACRO-definition"><a href="#Muli-line-function-MACRO-definition" class="headerlink" title="Muli-line function MACRO definition"></a><strong>Muli-line function MACRO definition</strong></h4><p>Sometimes, one needs to use MACROs to define a function that contains multiple lines and a return value. An example of doing such a definition is given below:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max_t(type,x,y) \</span></span><br><span class="line"> 	(&#123; type __x = (x); type __y = (y); __x &gt; __y ? __x: __y; &#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a = <span class="number">5</span>, b = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> c = <span class="keyword">max_t</span>(<span class="keyword">int</span>, a, b);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> d = (&#123;</span><br><span class="line">    <span class="keyword">int</span> __x = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">int</span> __y = <span class="number">8</span>;</span><br><span class="line">    __x &gt; __y ? __x : __y;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"max_t result: c = %d\r\n"</span>, c);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"max_t result: d = %d\r\n"</span>, d);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Output:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">max_t</span> result: c = <span class="number">6</span></span><br><span class="line"><span class="keyword">max_t</span> result: d = <span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<p>This example is inspired by the Linux kernel code, where <em>max_t</em> resides in kernel.h file. Notice the key is the brackets. If they are removed, compilation error would emerge. What also noticeable is the <em>type</em> parameter for run-time type casting.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/29/book-notes/psicc2-notes/" rel="next" title="PSiCC2">
+                <i class="fa fa-chevron-left"></i> PSiCC2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/14/book-notes/nand2tetris/" rel="prev" title="The Element of Computing Systems (aka., Nand2tetris)">
+                The Element of Computing Systems (aka., Nand2tetris) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/TonyZhaoyu/" title="GitHub &rarr; https://github.com/TonyZhaoyu/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Malloc-an-array-of-pointers"><span class="nav-text">Malloc an array of pointers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Play-with-GCC"><span class="nav-text">Play with GCC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-pointers"><span class="nav-text">Function pointers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Print-pointer-values"><span class="nav-text">Print pointer values</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Muli-line-function-MACRO-definition"><span class="nav-text">Muli-line function MACRO definition</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('Copy');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

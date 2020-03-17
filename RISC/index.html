@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/searchicon.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/searchicon.png?v=7.0.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","width":300,"display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="RISC ISA has been dominating the embedded world over decades. ARM, specifically, accounts for a huge market share, and leaves much limited space for MIPS. As AI and ML becomes pervasive recently, fabr">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RISC-V Notes">
+<meta property="og:url" content="http://yoursite.com/RISC/index.html">
+<meta property="og:site_name" content="Tony&#39;s Blog">
+<meta property="og:description" content="RISC ISA has been dominating the embedded world over decades. ARM, specifically, accounts for a huge market share, and leaves much limited space for MIPS. As AI and ML becomes pervasive recently, fabr">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://riscv.org/wp-content/uploads/2015/10/cropped-LI_profile.png">
+<meta property="og:image" content="https://www.openhwgroup.org/images/openhw-landscape.svg">
+<meta property="og:image" content="https://isastaging.wpengine.com/wp-content/uploads/2018/11/board.png">
+<meta property="og:image" content="https://community.cadence.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-01-06/sifive_2D00_logo_2D00_v1.png">
+<meta property="og:updated_time" content="2020-03-17T15:09:21.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RISC-V Notes">
+<meta name="twitter:description" content="RISC ISA has been dominating the embedded world over decades. ARM, specifically, accounts for a huge market share, and leaves much limited space for MIPS. As AI and ML becomes pervasive recently, fabr">
+<meta name="twitter:image" content="https://riscv.org/wp-content/uploads/2015/10/cropped-LI_profile.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/RISC/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>RISC-V Notes | Tony's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tony's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-iot-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/iot-misc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>IoT Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-risc-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/risc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>RISC Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+
+        
+        
+        
+        
+
+      
+    
+      
+      
+
+        
+        
+        
+        
+
+      
+    
+    
+
+  
+
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">RISC-V Notes
+
+</h1>
+
+<div class="post-meta">
+  
+  
+
+
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <p>RISC ISA has been dominating the embedded world over decades. ARM, specifically, accounts for a huge market share, and leaves much limited space for MIPS. As AI and ML becomes pervasive recently, fabricating domain-specific SoCs leads a new trend in IC industry that was used to be ruled by a few giants. People tend to value ISA more since ISA constitutes the corner-stone of a general-purpose CPU in such SoCs. An ISA  which is free from license, ease to customize with a complete tool-chain would be in much favor of architects from various domains. By far, RISC-V might arguably be the chosen one due to its open-source character, and activated community. Thanks to the emergence of RISC-V, we finally see some challenge to a closed-source ARM.</p>
+<img src="https://riscv.org/wp-content/uploads/2015/10/cropped-LI_profile.png" width="250" style="border-style: none">
+
+<p><em>Courtesy of RISC-V foundation:</em> <a href="https://riscv.org/" target="_blank" rel="noopener">https://riscv.org/</a></p>
+<p>Moreover, the spirit of open-source has stimulated multiple organizations to embrace the new era of SoC designs, including some big names (like <em>Silicon Labs</em> and <em>NXP</em>) from IC industry. Really exited to foresee open RISC dominates the market in 5 to 10 years.</p>
+<img src="https://www.openhwgroup.org/images/openhw-landscape.svg" width="350" style="border-style: none">
+
+<p><em>Courtesy of open hardware group:</em> <a href="https://www.openhwgroup.org/" target="_blank" rel="noopener">https://www.openhwgroup.org/</a></p>
+<img src="https://isastaging.wpengine.com/wp-content/uploads/2018/11/board.png" width="350" style="border-style: none">
+
+<p><em>Courtesy of open-isa:</em> <a href="https://open-isa.org/" target="_blank" rel="noopener">https://open-isa.org/</a></p>
+<hr>
+<p>There is one company playing a leader role in RISC-V community. The name is SiFive. The company is known from its background, i.e., strong academic relationship with UCB computer architecture lab.</p>
+<img src="https://community.cadence.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-01-06/sifive_2D00_logo_2D00_v1.png" width="300" style="border-style: none">
+
+<p><em>Courtesy of SiFive:</em> <a href="https://www.sifive.com/" target="_blank" rel="noopener">https://www.sifive.com/</a></p>
+<p>Having attended a few seminars of SiFive, I’ve summarized a few ideas/jargons hereby. I’d apologize for the less structural organization as some ideas are new to me. Also, there might be some missing descriptions, and they will be updated later.</p>
+<ul>
+<li><strong>RISC-V continuing works in 2019</strong></li>
+</ul>
+<p>Some jargons with simple descriptions are presented below:</p>
+<ol>
+<li><p>CLIC: It is a RISC-V Core-Local Interrupt Controller (<a href="https://github.com/sifive/clic-spec/blob/master/clic.adoc" target="_blank" rel="noopener">CLIC</a>) proposed by SiFive. It is expected to replace  the existing RISC-V local interrupt scheme (CLINT) in the future. The CLIC also implements the standard RISC-V platform-level interrupt controller (PLIC).</p>
+</li>
+<li><p>Vectors: Most refers to <a href="https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc" target="_blank" rel="noopener">vector extension</a>. The ideas is to outperform SIMD instructions.</p>
+</li>
+<li><p>Hypervisor: RISC-V supports three privilege modes, i.e., Machine mode, Supervisor mode and User mode. Hypervisor is an extension of the Supervisor mode which provides virtualization etc.</p>
+</li>
+<li><p>ZFinx: Quoted from <a href="https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc" target="_blank" rel="noopener">vector extension</a>: <code>Zfinx (&quot;F in X&quot;) is a new ISA option under consideration where floating-point instructions take their arguments from the integer register file.</code>.</p>
+</li>
+<li><p>Code density: There is a great answer <a href="https://electronics.stackexchange.com/questions/4123/about-code-density-and-its-definition" target="_blank" rel="noopener">here</a>. Basically, high density code takes less RAM space and takes less micro-instructions to realize a function. Usually it depends on the CPU ISA and the compiler.</p>
+</li>
+</ol>
+<ul>
+<li><strong>Tools/techs used by SiFive</strong></li>
+</ul>
+<p>As SiFive works closely with the <a href="https://bar.eecs.berkeley.edu/" target="_blank" rel="noopener">BAR</a>, i.e., Berkeley Architecture Research, some tools have been adopted from the laboratory to the commercial. The following lists include tools originated from lab and tools that have been developed by SiFive.</p>
+<ol>
+<li><p>Code generator: <a href="https://chisel.eecs.berkeley.edu/" target="_blank" rel="noopener">Chisel</a> - Constructing Hardware in a Scala Embedded Language. SiFive use Chisel to model customized CPU systems on the Web, and generates verifiable RTL code for customers.</p>
+</li>
+<li><p>Chip generator: Prometheus. Not sure what it is after Googling.</p>
+</li>
+<li><p><a href="https://sifive.cdn.prismic.io/sifive%2F57f93ecf-2c42-46f7-9818-bcdd7d39400a_tilelink-spec-1.7.1.pdf" target="_blank" rel="noopener">Tilelink</a>: Basically it is a bus to connect general-purpose processors, DMA engines and accelerators etc.</p>
+</li>
+<li><p>Chiplink: I could not find proper documents on Google, but basically it is a serialized chip-to-chip TileLink.</p>
+</li>
+</ol>
+<ul>
+<li><strong>Business models and road-maps of SiFive and SiFive China</strong></li>
+</ul>
+<p>Firstly, SiFive China runs independently to SiFive US. It seemed that SiFive China would focus more on AI/ML, as they claim all-in vector extension. There will be a AI EVB launch this year, namely Freedom Resolution. SiFive is an IP core vendor but has a very strong ambition to stretches out its ecosystem to AI/ML market. As such, they created <code>Design-share</code> to offer levels of IPs to customers by partnering various IP vendors (e.g., Imagination for GPU and A/D companies). To improve time-to-market, SiFive builds IP templates (like IoT MCUs, smart Audio, smart Video etc) for customers. By such a method, the spirit what SiFive offers makes hardware design <code>soft</code>, and to some extent matches the idea of SaaS (software as a service).</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/TonyZhaoyu/" title="GitHub &rarr; https://github.com/TonyZhaoyu/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('Copy');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>
