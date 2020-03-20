@@ -365,7 +365,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/03/17/iot-security/iot-security/" class="post-title-link" itemprop="url">Security Processes in WiFi Devices</a>
+                <a href="/2020/03/17/iot-security/iot-security/" class="post-title-link" itemprop="url">Basics and Concepts in Secured Connectivity</a>
               
             
           </h1>
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-18 17:09:33" itemprop="dateModified" datetime="2020-03-18T17:09:33+08:00">2020-03-18</time>
+                <time title="Modified: 2020-03-20 16:37:59" itemprop="dateModified" datetime="2020-03-20T16:37:59+08:00">2020-03-20</time>
               
             
           </span>
@@ -461,7 +461,7 @@
       
         
           
-            <p>This article analyzes common ways to secure connectivity between a WiFi device and cloud. Some basics of cryptography will be addressed in the mean time.</p>
+            <p>Some basics of cryptography will be addressed in the mean time. This is mainly to address secured connectivity to cloud.</p>
 <h4 id="Basics-of-Cryptography"><a href="#Basics-of-Cryptography" class="headerlink" title="Basics of Cryptography"></a>Basics of Cryptography</h4><ul>
 <li><p><code>Encoding</code> and <code>Decoding</code> offer no <strong>confidentiality</strong> to information. And hence no keys involved.</p>
 <blockquote>
@@ -485,6 +485,51 @@
 </blockquote>
 </li>
 </ul>
+<h4 id="Algorithms-and-Key-Management"><a href="#Algorithms-and-Key-Management" class="headerlink" title="Algorithms and Key Management"></a>Algorithms and Key Management</h4><h5 id="Randomness"><a href="#Randomness" class="headerlink" title="Randomness"></a>Randomness</h5><p>Randomness is critical to <strong>unpredictable</strong> key generation. Some hardware contributes to randomness by what’s called RNG. Some cases that is not able to leverage hardware resources could use seed sources of high entropy to produce unpredictable <strong>pesudorandom</strong> numbers. A seed is a number or vector (e.g., <code>IV</code> initialization vector) used to initialize a PRNG.</p>
+<blockquote>
+<p><code>Entropy</code> is a measure of the disorder (randomness) in a system. Hence, we could say that a system has a high entropy source.</p>
+</blockquote>
+<h5 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h5><p>There are three major types of algorithms: hash functions, ciphers and encoders. Please notice the difference between <strong>hashing</strong> and <strong>hash functions</strong>.</p>
+<ul>
+<li>Hash functions takes <em>arbitrarily-sized</em> input ==&gt; a shorter, <em>fixed-length</em> output.</li>
+<li>Cyphers are used to encryption and decryption. Refer to the last section.</li>
+<li>Encoders are not related to security. Refer to Base64 for more information.</li>
+</ul>
+<p>What are algorithms been used:</p>
+<ul>
+<li>Pseudorandom number generation.</li>
+<li>Key generation and management.</li>
+<li>MAC (<strong>message authentication code</strong>) creation and validation.</li>
+<li>Digital signature creation and validation.</li>
+<li>Digital certification creation and validation.</li>
+</ul>
+<h5 id="Keys"><a href="#Keys" class="headerlink" title="Keys"></a>Keys</h5><p>Symmetric keys are used in cyphers and MAC (message authentication code). Asymmetric keys are used in cyphers and digital signatures.</p>
+<ul>
+<li>Asymmetric keys contains public keys and private keys.<ol>
+<li>Public keys are used to encrypt plaintext and verify digital signatures.</li>
+<li>Private keys are used to decrypt ciphertext and create digital signatures.</li>
+</ol>
+</li>
+</ul>
+<p>A problem comes with public key is that how to ensure the authenticity of the public key’s origin? Digital certificate (cert) verifies such an authenticity, and the cert itself is verified by a trusted 3rd-party (namely, CA). See the following section.</p>
+<ul>
+<li><p>Public key distribution could be done in two ways below:</p>
+<ol>
+<li>Out-of-band distribution of public key fingerprints. A fingerprint is a shorter version of the key’s characters, e.g., a hash of the key and associated identify info. Recall the method I used to send emails at Silabs security cause. We need Slack to verity the fingerprint of the public key.</li>
+<li>Digital certificates. A digital cert is used to prove ownership of a public and private key pair. It usually issued by a trusted 3-party which usually includes:<br> 2.1 Public key.<br> 2.2 Key Owner.<br> 2.3 Key Issuer.<br> 2.4 Expiration date.<br> 2.5 A digital signature that validates the integrity of the certificate and the authenticity of the issuer.</li>
+</ol>
+</li>
+<li><p>Certificate could be signed by a previous certificate in a chain of trust.</p>
+</li>
+<li><p>Public key infrastructure, i.e., PKI supports issuance, maintenance and revocation of digital certs. CA (certificate authority) is part of PKI.</p>
+</li>
+</ul>
+<h5 id="Cryptography-in-Applications"><a href="#Cryptography-in-Applications" class="headerlink" title="Cryptography in Applications"></a>Cryptography in Applications</h5><p>Protected communications could be done on a authentic channel, a confidential channel and a secured channel. Check the following diagram to see certain resistance of each channel:</p>
+<p>|  | Disclosure Resistant | Tamper Resistant |<br>| Authentic Channel |  No | Yes |<br>| Confidential Channel | Yes | No |<br>| Secure Channel | Yes | Yes |</p>
+<ul>
+<li>Tampering is defined as an attack against integrity, authenticity, or availability.</li>
+</ul>
+<p>The tutorial video appears to be very <code>confusing</code>.</p>
 
           
         
