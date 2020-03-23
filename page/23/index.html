@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-20 16:37:59" itemprop="dateModified" datetime="2020-03-20T16:37:59+08:00">2020-03-20</time>
+                <time title="Modified: 2020-03-23 17:36:12" itemprop="dateModified" datetime="2020-03-23T17:36:12+08:00">2020-03-23</time>
               
             
           </span>
@@ -525,11 +525,92 @@
 </li>
 </ul>
 <h5 id="Cryptography-in-Applications"><a href="#Cryptography-in-Applications" class="headerlink" title="Cryptography in Applications"></a>Cryptography in Applications</h5><p>Protected communications could be done on a authentic channel, a confidential channel and a secured channel. Check the following diagram to see certain resistance of each channel:</p>
-<p>|  | Disclosure Resistant | Tamper Resistant |<br>| Authentic Channel |  No | Yes |<br>| Confidential Channel | Yes | No |<br>| Secure Channel | Yes | Yes |</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Disclosure Resistant</th>
+<th>Tamper Resistant</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Authentic Channel</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Confidential Channel</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Secure Channel</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
 <ul>
 <li>Tampering is defined as an attack against integrity, authenticity, or availability.</li>
 </ul>
 <p>The tutorial video appears to be very <code>confusing</code>.</p>
+<h5 id="Message-Integrity"><a href="#Message-Integrity" class="headerlink" title="Message Integrity"></a>Message Integrity</h5><p>Tampering is an attack against <code>integrity</code>, <code>authenticity</code> and <code>availability</code>. </p>
+<ul>
+<li><p>To understand availability, here is something:</p>
+<blockquote>
+<p>When a system is regularly non-functioning, information availability is affected and significantly impacts users.</p>
+</blockquote>
+</li>
+<li><p>Message integrity indicates that the message is not spoofed (e.g., send email impersonate a contact) or forged (modified info):</p>
+<ol>
+<li>Replaying message attack.</li>
+<li>Creating a message pretending to be someone you are not.</li>
+</ol>
+</li>
+</ul>
+<p>A diagram shows message integrity functions:</p>
+<blockquote>
+<p>Non-repudiation is the assurance that someone cannot deny something. Typically, non-repudiation refers to the ability to ensure that a party to a contract or a communication cannot deny the authenticity of their signature on a document or the sending of a message that they originated.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Key</th>
+<th>Authenticity</th>
+<th>Integrity</th>
+<th>Non-repudiation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hash</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>Message Authentication Code (MAC)</td>
+<td>Symmetric</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>Digital Signature</td>
+<td>Asymmetric</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Digital signature provides non-repudiation assurance because every party to a communication has a unique key which they sign the message. The following diagrams illustrates a digital signature verification process:</li>
+</ul>
+<p><img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/digital_signature/Sender.png?raw=true" alt="Sender of Digital Signature"></p>
+<p><img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/digital_signature/Receiver.png?raw=true" alt="Receiver of Digital Signature"></p>
+<ul>
+<li>The above method ensures the integrity of the message, and the message itself could be encrypted.</li>
+</ul>
 
           
         
