@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/digital_signature/Sender.png?raw=true">
 <meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/digital_signature/Receiver.png?raw=true">
 <meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/digital_signature/Cypher_suite.png?raw=true">
-<meta property="og:updated_time" content="2020-03-27T03:45:00.965Z">
+<meta property="og:updated_time" content="2020-03-30T06:15:45.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Basics and Concepts in Secured Connectivity">
 <meta name="twitter:description" content="Some basics of cryptography will be addressed in the mean time. This is mainly to address secured connectivity to cloud. Basics of Cryptography Encoding and Decoding offer no confidentiality to inform">
@@ -412,7 +412,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-27 11:45:00" itemprop="dateModified" datetime="2020-03-27T11:45:00+08:00">2020-03-27</time>
+                <time title="Modified: 2020-03-30 14:15:45" itemprop="dateModified" datetime="2020-03-30T14:15:45+08:00">2020-03-30</time>
               
             
           </span>
@@ -710,7 +710,27 @@
 </li>
 </ol>
 <p>Key contents in a report/documentation could include: security objectives, key scenarios, protected resources, threat list and vulnerability list.</p>
-<h4 id="Privacy-by-Design"><a href="#Privacy-by-Design" class="headerlink" title="Privacy by Design"></a>Privacy by Design</h4>
+<h4 id="Fundamentals-of-IoT-Architecture-and-Design"><a href="#Fundamentals-of-IoT-Architecture-and-Design" class="headerlink" title="Fundamentals of IoT Architecture and Design"></a>Fundamentals of IoT Architecture and Design</h4><p>Think of two classes to categorize security requirements:<br>    * User access.<br>        1. How can users access IoT system? Via cloud, device or Mobile App.<br>        2. What is the user’s classification? Resources and services? Changes to info? Features and functions?<br>        3. What type of security screenings are required? Passwords or pins? Tokens or certs?<br>    * External device access.<br>        1. What types of devices can connect to the system? Mobile? Diagnostic tools? IoT devices?<br>        2. How can devices connect to the IoT system? Wireless?<br>        3. What is the device’s classification? Query info? Features and functions?<br>        4. What type of security screenings are required? Tokens or cert? Dongles?</p>
+<p>Characteristics are needed for securing remote access:</p>
+<pre><code>* How long should an active session last?
+* When should session configuration occur?
+* How dynamic are sessions between devices?
+* Should there be different standards of secure remote access?</code></pre><p>Application security (AppSec) implications:</p>
+<pre><code>* During the requirements and design phases, determine how IoT system components interact with outside entities
+    1. Software tampering
+    2. Configuration management
+    3. Session management
+    4. Exception management
+
+* Design the processes necessary to detect and handle these categories
+* Factor in the capability to allow for future updates
+* Review what external support parameters are required to configure these processes
+    1. Where stored
+    2. How distributed and updated
+
+* Determine what levels of performance are expected between the cloud and IoT devices and between IoT devices themselves.
+* Minimize the number of intervening layers between detection and handling while processing remote access requests.</code></pre><p>General rules to follow for cryptographic storage include:<br>    * Only store sensitive data that you need.<br>    * Use strong approved authenticated encryption that:<br>        a. Uses approved cryptographic modes.<br>        b. Uses strong random numbers.<br>        c. Uses authenticated encryption of data.<br>    * Store a one-way and salted value of passwords.<br>    * Ensure that the cryptographic protection remains even if access control fails.<br>    * Ensure that any secret key is protected from unauthorized access that:<br>        a. Defines a key lifecycle<br>        b. Stores unencrypted keys away from the encrypted data<br>        c. Uses independent keys when multiple keys are required<br>        d. Protests keys in a key vault<br>        e. Documents concrete procedures for managing keys through lifecycle<br>        f. Builds support for changing algorithms and keys when needed<br>        g. Documents concrete procedures to handle a key compromise<br>        h. Limits quantity of data encrypted with one key<br>    * Follow applicable regulations on use of cryptography, such as under PCI DSS requirement 3, you must protect cardholder data.</p>
+
       
     </div>
 
@@ -740,8 +760,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/16/iot-security/security-dev/" rel="next" title="Security Development Jotting">
-                <i class="fa fa-chevron-left"></i> Security Development Jotting
+              <a href="/2020/03/16/iot-security/security-dev/" rel="next" title="Software Security Development Jotting">
+                <i class="fa fa-chevron-left"></i> Software Security Development Jotting
               </a>
             
           </div>
@@ -944,7 +964,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basics-of-Cryptography"><span class="nav-text">Basics of Cryptography</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithms-and-Key-Management"><span class="nav-text">Algorithms and Key Management</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Randomness"><span class="nav-text">Randomness</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Algorithms"><span class="nav-text">Algorithms</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Keys"><span class="nav-text">Keys</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cryptography-in-Applications"><span class="nav-text">Cryptography in Applications</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Message-Integrity"><span class="nav-text">Message Integrity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mobile-Data-with-Crypto"><span class="nav-text">Mobile Data with Crypto</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architecture-Risk-Analysis-and-Remediation"><span class="nav-text">Architecture Risk Analysis and Remediation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Some-best-practices-for-attack-surface-analysis"><span class="nav-text">Some best practices for attack surface analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OWASP-2017-Top10-mitigation"><span class="nav-text">OWASP 2017 Top10 mitigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread-modelling-basics"><span class="nav-text">Thread modelling basics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Privacy-by-Design"><span class="nav-text">Privacy by Design</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basics-of-Cryptography"><span class="nav-text">Basics of Cryptography</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithms-and-Key-Management"><span class="nav-text">Algorithms and Key Management</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Randomness"><span class="nav-text">Randomness</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Algorithms"><span class="nav-text">Algorithms</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Keys"><span class="nav-text">Keys</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cryptography-in-Applications"><span class="nav-text">Cryptography in Applications</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Message-Integrity"><span class="nav-text">Message Integrity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mobile-Data-with-Crypto"><span class="nav-text">Mobile Data with Crypto</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architecture-Risk-Analysis-and-Remediation"><span class="nav-text">Architecture Risk Analysis and Remediation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Some-best-practices-for-attack-surface-analysis"><span class="nav-text">Some best practices for attack surface analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OWASP-2017-Top10-mitigation"><span class="nav-text">OWASP 2017 Top10 mitigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread-modelling-basics"><span class="nav-text">Thread modelling basics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fundamentals-of-IoT-Architecture-and-Design"><span class="nav-text">Fundamentals of IoT Architecture and Design</span></a></li></ol></div>
             
 
           </div>

@@ -365,7 +365,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/03/16/iot-security/security-dev/" class="post-title-link" itemprop="url">Security Development Jotting</a>
+                <a href="/2020/03/16/iot-security/security-dev/" class="post-title-link" itemprop="url">Software Security Development Jotting</a>
               
             
           </h1>
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-18 15:25:03" itemprop="dateModified" datetime="2020-03-18T15:25:03+08:00">2020-03-18</time>
+                <time title="Modified: 2020-04-07 14:01:05" itemprop="dateModified" datetime="2020-04-07T14:01:05+08:00">2020-04-07</time>
               
             
           </span>
@@ -473,6 +473,28 @@
 <li><p>The concept of defence in depth involves multiple layers of defences. If one layer is compromised, other layers should be able to prevent the system from complete compromise.</p>
 </li>
 </ul>
+<h4 id="Software-Security-Development"><a href="#Software-Security-Development" class="headerlink" title="Software Security Development"></a>Software Security Development</h4><p>Requirements –&gt; Design –&gt; Development –&gt; Testing –&gt; Deployment –&gt; Maintenance</p>
+<h5 id="Software-security-requirements"><a href="#Software-security-requirements" class="headerlink" title="Software security requirements"></a>Software security requirements</h5><ul>
+<li>Legal security requirements.</li>
+<li>Customer security requirements and technical requirements</li>
+</ul>
+<h5 id="Designing-secure-software"><a href="#Designing-secure-software" class="headerlink" title="Designing secure software"></a>Designing secure software</h5><p><code>Thread modeling</code> please refers to related topics in <code>iot-security.md</code>.</p>
+<p>The following aspects could be considered during threat modeling:<br>    * Attacker-centric: attacker motives and techniques are well understood.<br>    * Software-centric: provides a service like stock data.<br>    * Asset-centric: select if sensitive data are processed.</p>
+<p>Recall concepts in <code>iot-security.md</code>. Some application security principles are listed here:<br>    * Attack surface reduction.<br>    * Secure defaults. NOT leave insecure settings in place for the components and services of your application, and design your app to use the most secure settings by default.<br>    * Least privileges.<br>    * Defence in depth.<br>    * Compartmentalization (divide into sections or categories). Could design trust boundaries to isolate components from one another.</p>
+<h5 id="Security-development-lifecycle"><a href="#Security-development-lifecycle" class="headerlink" title="Security development lifecycle"></a>Security development lifecycle</h5><p>Tools to be used in SDL (in Microsoft):<br>    * Threat-modeling tool like MSTT to identify threats early in the Design phase.<br>    * Fault-injection tool to aid with security testing efforts in the Verification phase.<br>    * Code analysis like static analysis and binary analysis.</p>
+<p>Code review in terms of security:<br>    * OWASP code review guide.<br>    * SE top 100 security rules.<br>    * Compile-time and run-time fault injection like <code>Fuzz testing</code> uses an automated tool that provides invalid or random input to an application and monitors how the application behaves.</p>
+<h5 id="Security-code-review"><a href="#Security-code-review" class="headerlink" title="Security code review"></a>Security code review</h5><p>Best practices:<br>    * Identify the scope of the code review.<br>    * Break code review into chunks.<br>    * Review code iteratively.<br>    * Set time limits.<br>    * Create coding standards.</p>
+<p>Control flow analysis (what code is executed under what conditions) and data flow analysis (what code handles what data).</p>
+<p>Review for unique issues:<br>    * Look for custom security code.<br>    * Look for code that uses cryptography.<br>    * Review authentication and authorization models.</p>
+<p>Security risk management basics:<br>    * Vulnerability: Weakness in the application.<br>    * Exploit: An application or set of commands to take advantage of vulnerability, like hack into an application. A valid phrase is <code>exploit vulnerabilities</code>.<br>    * Countermeasure: A step taken to <code>address</code> or <code>reduce</code> the potential for damage caused by a vulnerability in your application code.<br>    * Risk: The potential for loss or damage to an asset (like a database).</p>
+<h4 id="OWASP-2017-Mitigation"><a href="#OWASP-2017-Mitigation" class="headerlink" title="OWASP 2017 Mitigation"></a>OWASP 2017 Mitigation</h4><p>OWASP: open web application security project.</p>
+<h5 id="Mitigating-injection"><a href="#Mitigating-injection" class="headerlink" title="Mitigating injection"></a>Mitigating injection</h5><p>SQL injection is one of the most common example of injection. For instance, a URL may be used to check SQL database by something like <a href="https://example.com/showosders?customer-id=224" target="_blank" rel="noopener">https://example.com/showosders?customer-id=224</a> <code>or 1</code>. The <code>or 1</code> is injected to the normal URL, and could bypass custer-id checking.</p>
+<h5 id="Mitigating-broken-authentication"><a href="#Mitigating-broken-authentication" class="headerlink" title="Mitigating broken authentication"></a>Mitigating broken authentication</h5><p>It talks more on session management and password recovery.</p>
+<h5 id="Mitigating-sensitive-data-exposure"><a href="#Mitigating-sensitive-data-exposure" class="headerlink" title="Mitigating sensitive data exposure"></a>Mitigating sensitive data exposure</h5><p>The issues in sensitive data exposure involves insecure crypto storage and insufficient transport layer protection.</p>
+<p>Handshake algorithm:<br>    * Have to determine whether or not you require <code>perfect forward secrecy</code>.<br>    * Handshake with perfect forward secrecy: ECDHE.<br>    * Handshake without perfect forward secrecy: ECDH.<br>    * Notice performance may vary case-by-case.</p>
+<p>Authentication algorithm:<br>    * ECDSA and RSA could be selected.<br>    * The choice is largely dictated by Certificate Authority that issues the cert.<br>    * ECDSA has better performance, especially combined with ECDHE (Ephemeral).</p>
+<p>Best practices to handle TLC certs:<br>    * Never use self-signed cert.<br>    * No MD5 hashing.<br>    * Use RSA or DSA key &gt; 2048 bits</p>
+<h4 id="Development-of-secured-embedded-software"><a href="#Development-of-secured-embedded-software" class="headerlink" title="Development of secured embedded software"></a>Development of secured embedded software</h4><p>Some memory issues:<br>    * Buffer overflow<br>    * Double free<br>    * Use after free<br>    * Invalid memory pointers<br>    * Out of range access<br>    * Memory leaks<br>    * Using uninitialized memory</p>
 
           
         
