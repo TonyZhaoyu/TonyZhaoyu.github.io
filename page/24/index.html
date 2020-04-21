@@ -390,7 +390,7 @@
                 
               
 
-              <time title="Created: 2020-04-21 11:29:42 / Modified: 11:30:14" itemprop="dateCreated datePublished" datetime="2020-04-21T11:29:42+08:00">2020-04-21</time>
+              <time title="Created: 2020-04-21 11:29:42 / Modified: 15:20:22" itemprop="dateCreated datePublished" datetime="2020-04-21T11:29:42+08:00">2020-04-21</time>
             
 
             
@@ -449,7 +449,21 @@
       
         
           
-            
+            <h4 id="Readback-Protection"><a href="#Readback-Protection" class="headerlink" title="Readback Protection"></a>Readback Protection</h4><p>Refer to a Whitepaper published by NCC group <code>Microcontroller Readback Protection Bypasses and Defenses</code>.</p>
+<p>Many different mechanisms are used by microcontroller vendors to provide data readback protection, including:</p>
+<ul>
+<li>Disabling debugger access completely.</li>
+<li>Preventing debuggers from reading memory-mapped flash addresses while otherwise leaving the debugging capability intact.</li>
+<li>Preventing flash reads by any internal bus master other than the CPU instruction fetch mechanism.</li>
+<li>Disabling flash reads within bootloaders.</li>
+<li>Encrypting the contents of flash.</li>
+</ul>
+<h5 id="Debug-Pins-Reconfigured-for-Alternate-Functions"><a href="#Debug-Pins-Reconfigured-for-Alternate-Functions" class="headerlink" title="Debug Pins Reconfigured for Alternate Functions"></a>Debug Pins Reconfigured for Alternate Functions</h5><p>The threat here is: attackers are able to read memory via debug interfaces like Jtag if debug pins are not protected/disabled.</p>
+<ul>
+<li>Run-time debug disablement has vulnerability as attackers could attach the debugger at early stage while letting device reset to halt the MCU before run-time disablement starts.</li>
+<li>The root cause of such an issue is normally such debug pins are multiplexed with GPIOs, and some MCU allows run-time debug pin remapping. Sometimes boot mode pins could contribute to bypassing the debug interface remapping.</li>
+</ul>
+
           
         
       
