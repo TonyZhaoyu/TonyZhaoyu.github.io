@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-17 23:09:21" itemprop="dateModified" datetime="2020-03-17T23:09:21+08:00">2020-03-17</time>
+                <time title="Modified: 2020-04-21 11:33:31" itemprop="dateModified" datetime="2020-04-21T11:33:31+08:00">2020-04-21</time>
               
             
           </span>
@@ -432,13 +432,6 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/Review/" itemprop="url" rel="index"><span itemprop="name">Review</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/Review/Paho-mqtt-C/" itemprop="url" rel="index"><span itemprop="name">Paho mqtt C</span></a></span>
 
                 
                 
@@ -550,7 +543,7 @@
 <li>For the timeout of receiveThread, it could eventually calls MQTTAsync_sleep() with value of 100 milliseconds.</li>
 </ul>
 <hr>
-<h4 id="Ember-Application-Framework"><a href="#Ember-Application-Framework" class="headerlink" title="Ember Application Framework"></a><strong>Ember Application Framework</strong></h4><p>The application Z3GatewayHost could be running on a Linux machine. It could also be equipped with a MQTT client and talks to a MQTT broker using the APIs defined in UG129. The MQTT client is based on paho.mqtt.c library, which invokes two threads (total three considering the main thread) when executing. It’s nature to wonder how to integrate a multi-threaded library into the Ember application framework without destroying anything. The answer is quite straightforward. In short, multi-threads won’t interfere anything in the Ember framework.</p>
+<h4 id="MQTT-in-Ember-Application-Framework"><a href="#MQTT-in-Ember-Application-Framework" class="headerlink" title="MQTT in Ember Application Framework"></a><strong>MQTT in Ember Application Framework</strong></h4><p>The application Z3GatewayHost could be running on a Linux machine. It could also be equipped with a MQTT client and talks to a MQTT broker using the APIs defined in UG129. The MQTT client is based on paho.mqtt.c library, which invokes two threads (total three considering the main thread) when executing. It’s nature to wonder how to integrate a multi-threaded library into the Ember application framework without destroying anything. The answer is quite straightforward. In short, multi-threads won’t interfere anything in the Ember framework.</p>
 <p>Z3GatewayHost is a process which forks a child process to handle UART comm. <em>paho.mqtt.c</em> creates two thread when startup, and such a creation is done during the framework’s initialization. Since the command to be sent to MQTT server is queued up in a shared buffer, the main thread (where ember framework runs) could send and exit in a non-blocking behavior. This is critical to the framework as ember stack error may happen if blocking operations are conducted. On the other hand, if the MQTT message from the broker is a <em>command</em> type, it will call the handleCommandMessage() handler, and add this command to a command list. This also prevents a blocking execution of a command. A looped event (20 milliseconds’ period) pops a command from the list and send the command through ezsp or internal handlers.</p>
 
           
@@ -597,7 +590,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -640,7 +633,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -679,43 +672,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

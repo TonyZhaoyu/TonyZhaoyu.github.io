@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/searchicon.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/searchicon.png?v=7.0.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","width":300,"display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="UART communicationAs its name tells, UART is an asynchronous serial communication between devices. A typical wiring connection is as follows:     When using UART is selected for the communication betw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Embedded Hardware Tutorials">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/book-notes/tutorials/embedded-hardware/index.html">
+<meta property="og:site_name" content="Tony&#39;s Blog">
+<meta property="og:description" content="UART communicationAs its name tells, UART is an asynchronous serial communication between devices. A typical wiring connection is as follows:     When using UART is selected for the communication betw">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://cn.bing.com/th?id=OIP.LAOk3F5k2VOtBlej8nQ3IgHaDo&pid=Api&rs=1">
+<meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/Hardware%20flow%20control.png?raw=true">
+<meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/Legacy%20hardware%20flow%20control.png?raw=true">
+<meta property="og:updated_time" content="2020-04-21T03:42:09.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Embedded Hardware Tutorials">
+<meta name="twitter:description" content="UART communicationAs its name tells, UART is an asynchronous serial communication between devices. A typical wiring connection is as follows:     When using UART is selected for the communication betw">
+<meta name="twitter:image" content="https://cn.bing.com/th?id=OIP.LAOk3F5k2VOtBlej8nQ3IgHaDo&pid=Api&rs=1">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/17/book-notes/tutorials/embedded-hardware/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Embedded Hardware Tutorials | Tony's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tony's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-iot-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/iot-misc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>IoT Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-risc-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/risc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>RISC Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/book-notes/tutorials/embedded-hardware/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tony's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Embedded Hardware Tutorials
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-17 10:36:06" itemprop="dateCreated datePublished" datetime="2019-12-17T10:36:06+08:00">2019-12-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-21 11:42:09" itemprop="dateModified" datetime="2020-04-21T11:42:09+08:00">2020-04-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Book-notes/" itemprop="url" rel="index"><span itemprop="name">Book notes</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Book-notes/Tutorials/" itemprop="url" rel="index"><span itemprop="name">Tutorials</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="UART-communication"><a href="#UART-communication" class="headerlink" title="UART communication"></a><strong>UART communication</strong></h4><p>As its name tells, UART is an asynchronous serial communication between devices. A typical wiring connection is as follows:</p>
+  <img src="https://cn.bing.com/th?id=OIP.LAOk3F5k2VOtBlej8nQ3IgHaDo&pid=Api&rs=1" width="250" style="border-style: none">
+
+<p>When using UART is selected for the communication between a fast device and a slow device, some sort of flow control is required to ensure no data lost. Take a RPi and an 8-bit MCU as an example. If the PRi wants to send a large stream of data to the MCU, the MCU might be in the danger of buffer exhaustion due to limited buffer space. With flow control, such a situation could be avoided as the MCU could inform the RPi to halt transmission until it handles the data in the buffer.</p>
+<h5 id="UART-flow-control"><a href="#UART-flow-control" class="headerlink" title="UART flow control"></a>UART flow control</h5><p>There are basically three ways to take advantage of the flow control:</p>
+<ol>
+<li><strong>Hardware flow control</strong></li>
+</ol>
+<p><img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/Hardware%20flow%20control.png?raw=true" alt="Hardware flow control"></p>
+<p>  CTS indicates <code>clear to send</code>, and RTS indicates <code>request to send</code>. As shown in the above figure, each device could trigger a halting/resuming of data transmission. If Device A wants to receive data, it will assert RTS (i.e., request Device B to send me data). If the receiving buffer is <strong>almost</strong> full, it should deassert RTS. The reason for setting an <strong>almost</strong> full signal is due to the fact there might be data on the line just after the RTS deassertion.</p>
+<p>  There might be some additional pins namely DTR (data terminal ready) and DSR (data set ready). These flow-control pins are no longer in use nowadays. The <a href="https://stackoverflow.com/questions/957337/what-is-the-difference-between-dtr-dsr-and-rts-cts-flow-control" target="_blank" rel="noopener">history</a> is duplicated as below:</p>
+<blockquote>
+<p>The difference between them is that they use different pins. Seriously, that’s it. The reason they both exist is that RTS/CTS wasn’t supposed to ever be a flow control mechanism, originally; it was for half-duplex modems to coordinate who was sending and who was receiving. RTS and CTS got misused for flow control so often that it became standard.</p>
+</blockquote>
+<ol start="2">
+<li><strong>Legacy hardware flow control (master/slave)</strong></li>
+</ol>
+<p><img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/Legacy%20hardware%20flow%20control.png?raw=true" alt="Legacy hardware flow control"></p>
+<p>  The legacy hardware flow control is usually implemented for a master (or DTE: data terminal equipment) and slave (or DCE: data communication equipment) situation, and in other words, it is a uni-directional communication. When DTE wants to send data, it asserts RTS and waits for CTS being asserted by DCE.</p>
+<ol start="3">
+<li><p><strong>Software flow control (XON/XOFF)</strong></p>
+<p>There is no need for extra wiring of software flow control. The flow control is decided by two specific ASCII characters i.e., XON - 0x11 and XOFF - 0x13. If the transmitter reads a XOFF from the receiver, the transmission should halt, and it could resume after reading a XON.</p>
+</li>
+</ol>
+<p><strong>References</strong>:</p>
+<p><a href="https://learn.sparkfun.com/tutorials/serial-communication/all" target="_blank" rel="noopener">https://learn.sparkfun.com/tutorials/serial-communication/all</a><br><a href="https://www.silabs.com/documents/public/application-notes/an0059.0-uart-flow-control.pdf" target="_blank" rel="noopener">https://www.silabs.com/documents/public/application-notes/an0059.0-uart-flow-control.pdf</a></p>
+<p><strong>Hardware flow control from a PC</strong>:</p>
+<p>Using a UART-to-TTL converter, the PC could talk to a MCU using UART protocol. Popular converters like <a href="https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf" target="_blank" rel="noopener">CP2102</a> could also provide flow controls. However, it might be hard for users to initiate flow controls as CP2102 by default. In other words, the PC needs to send specific commands to the converter so as to enable flow controls inside (check this <a href="https://www.silabs.com/community/interface/forum.topic.html/cp2102_rts_cts_quest-PhJX" target="_blank" rel="noopener">link</a>). Unfortunately, most of the PC software does not support sending such commands. Hence, to test flow control, it’d be better to use two MCUs.</p>
+<h4 id="Use-UARTs-on-a-MCU"><a href="#Use-UARTs-on-a-MCU" class="headerlink" title="Use UARTs on a MCU"></a>Use UARTs on a MCU</h4><ol>
+<li>One common way of </li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/07/book-notes/tutorials/embed-tutorial/" rel="next" title="Embedded Software Tutorials">
+                <i class="fa fa-chevron-left"></i> Embedded Software Tutorials
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/21/book-notes/wireless_spec/ble-mesh/" rel="prev" title="Bluetooth Mesh specification & usage">
+                Bluetooth Mesh specification & usage <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/TonyZhaoyu/" title="GitHub &rarr; https://github.com/TonyZhaoyu/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#UART-communication"><span class="nav-text">UART communication</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UART-flow-control"><span class="nav-text">UART flow control</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Use-UARTs-on-a-MCU"><span class="nav-text">Use UARTs on a MCU</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('Copy');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

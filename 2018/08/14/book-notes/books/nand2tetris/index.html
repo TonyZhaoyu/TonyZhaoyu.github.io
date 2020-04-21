@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/searchicon.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/searchicon.png?v=7.0.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","width":300,"display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Nand2Tetris reference book  The article covers project1 ~ project2 or chapter 1 ~ chapter 6, which are fundamentals of computer architectures based on HDL (an hardware description language defined in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Element of Computing Systems (aka., Nand2tetris)">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/book-notes/books/nand2tetris/index.html">
+<meta property="og:site_name" content="Tony&#39;s Blog">
+<meta property="og:description" content="Nand2Tetris reference book  The article covers project1 ~ project2 or chapter 1 ~ chapter 6, which are fundamentals of computer architectures based on HDL (an hardware description language defined in">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://static.wixstatic.com/media/44046b_68deee3a58e64efdba36a6813c4ea906~mv2.png/v1/crop/x_73,y_0,w_663,h_654/fill/w_663,h_653,al_c,q_85/44046b_68deee3a58e64efdba36a6813c4ea906~mv2.webp">
+<meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/HACK_computer.png?raw=true">
+<meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/CPU_interface.png?raw=true">
+<meta property="og:image" content="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/CPU_path.png?raw=true">
+<meta property="og:updated_time" content="2020-04-21T03:44:03.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Element of Computing Systems (aka., Nand2tetris)">
+<meta name="twitter:description" content="Nand2Tetris reference book  The article covers project1 ~ project2 or chapter 1 ~ chapter 6, which are fundamentals of computer architectures based on HDL (an hardware description language defined in">
+<meta name="twitter:image" content="https://static.wixstatic.com/media/44046b_68deee3a58e64efdba36a6813c4ea906~mv2.png/v1/crop/x_73,y_0,w_663,h_654/fill/w_663,h_653,al_c,q_85/44046b_68deee3a58e64efdba36a6813c4ea906~mv2.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/14/book-notes/books/nand2tetris/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>The Element of Computing Systems (aka., Nand2tetris) | Tony's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tony's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-iot-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/iot-misc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>IoT Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+        
+        
+        
+          
+            
+            
+            
+              
+              
+
+  
+  
+    
+  
+  <li class="menu-item menu-item-risc-jotting">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/risc/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>RISC Jotting</a>
+
+  </li>
+
+
+            
+          
+        
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/book-notes/books/nand2tetris/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tony's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">The Element of Computing Systems (aka., Nand2tetris)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-14 17:01:04" itemprop="dateCreated datePublished" datetime="2018-08-14T17:01:04+08:00">2018-08-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-21 11:44:03" itemprop="dateModified" datetime="2020-04-21T11:44:03+08:00">2020-04-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Book-notes/" itemprop="url" rel="index"><span itemprop="name">Book notes</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Book-notes/Books/" itemprop="url" rel="index"><span itemprop="name">Books</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Nand2Tetris-reference-book"><a href="#Nand2Tetris-reference-book" class="headerlink" title="Nand2Tetris reference book"></a>Nand2Tetris reference book</h4><img src="https://static.wixstatic.com/media/44046b_68deee3a58e64efdba36a6813c4ea906~mv2.png/v1/crop/x_73,y_0,w_663,h_654/fill/w_663,h_653,al_c,q_85/44046b_68deee3a58e64efdba36a6813c4ea906~mv2.webp" width="300" style="border-style: none">
+
+<p>The article covers project1 ~ project2 or chapter 1 ~ chapter 6, which are fundamentals of computer architectures based on HDL (an hardware description language defined in the book). Course materials could refer to <a href="https://www.nand2tetris.org/course" target="_blank" rel="noopener">https://www.nand2tetris.org/course</a>, and videos on Coursera. The goal for this article is to build a Hack computer based on simple combinational and sequential logic elements composed in HDL.</p>
+<ul>
+<li><p>HACK computer overview:<br>  <img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/HACK_computer.png?raw=true" alt="HACK computer overview"></p>
+</li>
+<li><p>CPU interface:<br>  <img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/CPU_interface.png?raw=true" alt="CPU interface"></p>
+</li>
+<li><p>CPU control/data path:<br>  <img src="https://github.com/TonyZhaoyu/blog_source/blob/master/pics/CPU_path.png?raw=true" alt="CPU control/data path"></p>
+</li>
+</ul>
+<p>The code below is HDL implementation of project 1, 2, 3 and 5.</p>
+<h5 id="Project-1-boolean-logic"><a href="#Project-1-boolean-logic" class="headerlink" title="Project 1: boolean logic"></a>Project 1: boolean logic</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/And.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * And gate:</span></span><br><span class="line"><span class="comment"> * out = 1 if (a == 1 and b == 1)</span></span><br><span class="line"><span class="comment"> *       0 otherwise</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP And &#123;</span><br><span class="line">    IN a, b;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Nand (a=a, b=b, out=outNand1);</span><br><span class="line">    Nand (a=outNand1, b=<span class="literal">true</span>, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/And16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16-bit bitwise And:</span></span><br><span class="line"><span class="comment"> * for i = 0..15: out[i] = (a[i] and b[i])</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP And16 &#123;</span><br><span class="line">    IN a[<span class="number">16</span>], b[<span class="number">16</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    And (a=a[<span class="number">0</span>], b=b[<span class="number">0</span>], out=out[<span class="number">0</span>]);</span><br><span class="line">    And (a=a[<span class="number">1</span>], b=b[<span class="number">1</span>], out=out[<span class="number">1</span>]);</span><br><span class="line">    And (a=a[<span class="number">2</span>], b=b[<span class="number">2</span>], out=out[<span class="number">2</span>]);</span><br><span class="line">    And (a=a[<span class="number">3</span>], b=b[<span class="number">3</span>], out=out[<span class="number">3</span>]);</span><br><span class="line">    And (a=a[<span class="number">4</span>], b=b[<span class="number">4</span>], out=out[<span class="number">4</span>]);</span><br><span class="line">    And (a=a[<span class="number">5</span>], b=b[<span class="number">5</span>], out=out[<span class="number">5</span>]);</span><br><span class="line">    And (a=a[<span class="number">6</span>], b=b[<span class="number">6</span>], out=out[<span class="number">6</span>]);</span><br><span class="line">    And (a=a[<span class="number">7</span>], b=b[<span class="number">7</span>], out=out[<span class="number">7</span>]);</span><br><span class="line">    And (a=a[<span class="number">8</span>], b=b[<span class="number">8</span>], out=out[<span class="number">8</span>]);</span><br><span class="line">    And (a=a[<span class="number">9</span>], b=b[<span class="number">9</span>], out=out[<span class="number">9</span>]);</span><br><span class="line">    And (a=a[<span class="number">10</span>], b=b[<span class="number">10</span>], out=out[<span class="number">10</span>]);</span><br><span class="line">    And (a=a[<span class="number">11</span>], b=b[<span class="number">11</span>], out=out[<span class="number">11</span>]);</span><br><span class="line">    And (a=a[<span class="number">12</span>], b=b[<span class="number">12</span>], out=out[<span class="number">12</span>]);</span><br><span class="line">    And (a=a[<span class="number">13</span>], b=b[<span class="number">13</span>], out=out[<span class="number">13</span>]);</span><br><span class="line">    And (a=a[<span class="number">14</span>], b=b[<span class="number">14</span>], out=out[<span class="number">14</span>]);</span><br><span class="line">    And (a=a[<span class="number">15</span>], b=b[<span class="number">15</span>], out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/DMux.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Demultiplexor:</span></span><br><span class="line"><span class="comment"> * &#123;a, b&#125; = &#123;in, 0&#125; if sel == 0</span></span><br><span class="line"><span class="comment"> *          &#123;0, in&#125; if sel == 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP DMux &#123;</span><br><span class="line">    IN in, sel;</span><br><span class="line">    OUT a, b;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Not (in=sel, out=out1);</span><br><span class="line">    And (a=in, b=out1, out=a);</span><br><span class="line">    And (a=in, b=sel, out=b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/DMux4Way.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 4-way demultiplexor:</span></span><br><span class="line"><span class="comment"> * &#123;a, b, c, d&#125; = &#123;in, 0, 0, 0&#125; if sel == 00</span></span><br><span class="line"><span class="comment"> *                &#123;0, in, 0, 0&#125; if sel == 01</span></span><br><span class="line"><span class="comment"> *                &#123;0, 0, in, 0&#125; if sel == 10</span></span><br><span class="line"><span class="comment"> *                &#123;0, 0, 0, in&#125; if sel == 11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP DMux4Way &#123;</span><br><span class="line">    IN in, sel[<span class="number">2</span>];</span><br><span class="line">    OUT a, b, c, d;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux (in=in, sel=sel[<span class="number">1</span>], a=out1, b=out2);</span><br><span class="line">    DMux (in=out1, sel=sel[<span class="number">0</span>], a=a, b=b);</span><br><span class="line">    DMux (in=out2, sel=sel[<span class="number">0</span>], a=c, b=d);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/DMux8Way.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 8-way demultiplexor:</span></span><br><span class="line"><span class="comment"> * &#123;a, b, c, d, e, f, g, h&#125; = &#123;in, 0, 0, 0, 0, 0, 0, 0&#125; if sel == 000</span></span><br><span class="line"><span class="comment"> *                            &#123;0, in, 0, 0, 0, 0, 0, 0&#125; if sel == 001</span></span><br><span class="line"><span class="comment"> *                            etc.</span></span><br><span class="line"><span class="comment"> *                            &#123;0, 0, 0, 0, 0, 0, 0, in&#125; if sel == 111</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP DMux8Way &#123;</span><br><span class="line">    IN in, sel[<span class="number">3</span>];</span><br><span class="line">    OUT a, b, c, d, e, f, g, h;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux (in=in, sel=sel[<span class="number">2</span>], a=out1, b=out2);</span><br><span class="line">    DMux (in=out1, sel=sel[<span class="number">1</span>], a=out3, b=out4);</span><br><span class="line">    DMux (in=out2, sel=sel[<span class="number">1</span>], a=out5, b=out6);</span><br><span class="line">    DMux (in=out3, sel=sel[<span class="number">0</span>], a=a, b=b);</span><br><span class="line">    DMux (in=out4, sel=sel[<span class="number">0</span>], a=c, b=d);</span><br><span class="line">    DMux (in=out5, sel=sel[<span class="number">0</span>], a=e, b=f);</span><br><span class="line">    DMux (in=out6, sel=sel[<span class="number">0</span>], a=g, b=h);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Mux.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Multiplexor:</span></span><br><span class="line"><span class="comment"> * out = a if sel == 0</span></span><br><span class="line"><span class="comment"> *       b otherwise</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Mux &#123;</span><br><span class="line">    IN a, b, sel;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Not (in=sel, out=outNot);</span><br><span class="line">    And (a=a, b=outNot, out=outAnd1);</span><br><span class="line">    And (a=sel, b=b, out=outAnd2);</span><br><span class="line">    Or  (a=outAnd1, b=outAnd2, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Mux4Way16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 4-way 16-bit multiplexor:</span></span><br><span class="line"><span class="comment"> * out = a if sel == 00</span></span><br><span class="line"><span class="comment"> *       b if sel == 01</span></span><br><span class="line"><span class="comment"> *       c if sel == 10</span></span><br><span class="line"><span class="comment"> *       d if sel == 11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Mux4Way16 &#123;</span><br><span class="line">    IN a[<span class="number">16</span>], b[<span class="number">16</span>], c[<span class="number">16</span>], d[<span class="number">16</span>], sel[<span class="number">2</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Mux16 (a=a, b=b, sel=sel[<span class="number">0</span>], out=out1);</span><br><span class="line">    Mux16 (a=c, b=d, sel=sel[<span class="number">0</span>], out=out2);</span><br><span class="line">    Mux16 (a=out1, b=out2, sel=sel[<span class="number">1</span>], out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Mux8Way16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 8-way 16-bit multiplexor:</span></span><br><span class="line"><span class="comment"> * out = a if sel == 000</span></span><br><span class="line"><span class="comment"> *       b if sel == 001</span></span><br><span class="line"><span class="comment"> *       etc.</span></span><br><span class="line"><span class="comment"> *       h if sel == 111</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Mux8Way16 &#123;</span><br><span class="line">    IN a[<span class="number">16</span>], b[<span class="number">16</span>], c[<span class="number">16</span>], d[<span class="number">16</span>],</span><br><span class="line">       e[<span class="number">16</span>], f[<span class="number">16</span>], g[<span class="number">16</span>], h[<span class="number">16</span>],</span><br><span class="line">       sel[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Mux16 (a=a, b=b, sel=sel[<span class="number">0</span>], out=out1);</span><br><span class="line">    Mux16 (a=c, b=d, sel=sel[<span class="number">0</span>], out=out2);</span><br><span class="line">    Mux16 (a=e, b=f, sel=sel[<span class="number">0</span>], out=out3);</span><br><span class="line">    Mux16 (a=g, b=h, sel=sel[<span class="number">0</span>], out=out4);</span><br><span class="line">    Mux16 (a=out1, b=out2, sel=sel[<span class="number">1</span>], out=out5);</span><br><span class="line">    Mux16 (a=out3, b=out4, sel=sel[<span class="number">1</span>], out=out6);</span><br><span class="line">    Mux16 (a=out5, b=out6, sel=sel[<span class="number">2</span>], out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Mux16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16-bit multiplexor:</span></span><br><span class="line"><span class="comment"> * for i = 0..15 out[i] = a[i] if sel == 0</span></span><br><span class="line"><span class="comment"> *                        b[i] if sel == 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Mux16 &#123;</span><br><span class="line">    IN a[<span class="number">16</span>], b[<span class="number">16</span>], sel;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Mux (a=a[<span class="number">0</span>], b=b[<span class="number">0</span>], sel=sel, out=out[<span class="number">0</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">1</span>], b=b[<span class="number">1</span>], sel=sel, out=out[<span class="number">1</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">2</span>], b=b[<span class="number">2</span>], sel=sel, out=out[<span class="number">2</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">3</span>], b=b[<span class="number">3</span>], sel=sel, out=out[<span class="number">3</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">4</span>], b=b[<span class="number">4</span>], sel=sel, out=out[<span class="number">4</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">5</span>], b=b[<span class="number">5</span>], sel=sel, out=out[<span class="number">5</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">6</span>], b=b[<span class="number">6</span>], sel=sel, out=out[<span class="number">6</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">7</span>], b=b[<span class="number">7</span>], sel=sel, out=out[<span class="number">7</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">8</span>], b=b[<span class="number">8</span>], sel=sel, out=out[<span class="number">8</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">9</span>], b=b[<span class="number">9</span>], sel=sel, out=out[<span class="number">9</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">10</span>], b=b[<span class="number">10</span>], sel=sel, out=out[<span class="number">10</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">11</span>], b=b[<span class="number">11</span>], sel=sel, out=out[<span class="number">11</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">12</span>], b=b[<span class="number">12</span>], sel=sel, out=out[<span class="number">12</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">13</span>], b=b[<span class="number">13</span>], sel=sel, out=out[<span class="number">13</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">14</span>], b=b[<span class="number">14</span>], sel=sel, out=out[<span class="number">14</span>]);</span><br><span class="line">    Mux (a=a[<span class="number">15</span>], b=b[<span class="number">15</span>], sel=sel, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Not.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Not gate:</span></span><br><span class="line"><span class="comment"> * out = not in</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Not &#123;</span><br><span class="line">    IN in;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Nand (a=in, b=<span class="literal">true</span>, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Not16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16-bit Not:</span></span><br><span class="line"><span class="comment"> * for i=0..15: out[i] = not in[i]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Not16 &#123;</span><br><span class="line">    IN in[<span class="number">16</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Not (in=in[<span class="number">0</span>], out=out[<span class="number">0</span>]);</span><br><span class="line">    Not (in=in[<span class="number">1</span>], out=out[<span class="number">1</span>]);</span><br><span class="line">    Not (in=in[<span class="number">2</span>], out=out[<span class="number">2</span>]);</span><br><span class="line">    Not (in=in[<span class="number">3</span>], out=out[<span class="number">3</span>]);</span><br><span class="line">    Not (in=in[<span class="number">4</span>], out=out[<span class="number">4</span>]);</span><br><span class="line">    Not (in=in[<span class="number">5</span>], out=out[<span class="number">5</span>]);</span><br><span class="line">    Not (in=in[<span class="number">6</span>], out=out[<span class="number">6</span>]);</span><br><span class="line">    Not (in=in[<span class="number">7</span>], out=out[<span class="number">7</span>]);</span><br><span class="line">    Not (in=in[<span class="number">8</span>], out=out[<span class="number">8</span>]);</span><br><span class="line">    Not (in=in[<span class="number">9</span>], out=out[<span class="number">9</span>]);</span><br><span class="line">    Not (in=in[<span class="number">10</span>], out=out[<span class="number">10</span>]);</span><br><span class="line">    Not (in=in[<span class="number">11</span>], out=out[<span class="number">11</span>]);</span><br><span class="line">    Not (in=in[<span class="number">12</span>], out=out[<span class="number">12</span>]);</span><br><span class="line">    Not (in=in[<span class="number">13</span>], out=out[<span class="number">13</span>]);</span><br><span class="line">    Not (in=in[<span class="number">14</span>], out=out[<span class="number">14</span>]);</span><br><span class="line">    Not (in=in[<span class="number">15</span>], out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Or.hdl</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Or gate:</span></span><br><span class="line"><span class="comment"> * out = 1 if (a == 1 or b == 1)</span></span><br><span class="line"><span class="comment"> *       0 otherwise</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Or &#123;</span><br><span class="line">    IN a, b;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Nand (a=a, b=<span class="literal">true</span>, out=outNot1);</span><br><span class="line">    Nand (a=<span class="literal">true</span>, b=b, out=outNot2);</span><br><span class="line">    Nand (a=outNot1, b=outNot2, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Or8Way.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 8-way Or:</span></span><br><span class="line"><span class="comment"> * out = (in[0] or in[1] or ... or in[7])</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Or8Way &#123;</span><br><span class="line">    IN in[<span class="number">8</span>];</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Or (a=in[<span class="number">0</span>], b=in[<span class="number">1</span>], out=outOr1);</span><br><span class="line">    Or (a=in[<span class="number">2</span>], b=outOr1, out=outOr2);</span><br><span class="line">    Or (a=in[<span class="number">3</span>], b=outOr2, out=outOr3);</span><br><span class="line">    Or (a=in[<span class="number">4</span>], b=outOr3, out=outOr4);</span><br><span class="line">    Or (a=in[<span class="number">5</span>], b=outOr4, out=outOr5);</span><br><span class="line">    Or (a=in[<span class="number">6</span>], b=outOr5, out=outOr6);</span><br><span class="line">    Or (a=in[<span class="number">7</span>], b=outOr6, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Or16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16-bit bitwise Or:</span></span><br><span class="line"><span class="comment"> * for i = 0..15 out[i] = (a[i] or b[i])</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Or16 &#123;</span><br><span class="line">    IN a[<span class="number">16</span>], b[<span class="number">16</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Or (a=a[<span class="number">0</span>], b=b[<span class="number">0</span>], out=out[<span class="number">0</span>]);</span><br><span class="line">    Or (a=a[<span class="number">1</span>], b=b[<span class="number">1</span>], out=out[<span class="number">1</span>]);</span><br><span class="line">    Or (a=a[<span class="number">2</span>], b=b[<span class="number">2</span>], out=out[<span class="number">2</span>]);</span><br><span class="line">    Or (a=a[<span class="number">3</span>], b=b[<span class="number">3</span>], out=out[<span class="number">3</span>]);</span><br><span class="line">    Or (a=a[<span class="number">4</span>], b=b[<span class="number">4</span>], out=out[<span class="number">4</span>]);</span><br><span class="line">    Or (a=a[<span class="number">5</span>], b=b[<span class="number">5</span>], out=out[<span class="number">5</span>]);</span><br><span class="line">    Or (a=a[<span class="number">6</span>], b=b[<span class="number">6</span>], out=out[<span class="number">6</span>]);</span><br><span class="line">    Or (a=a[<span class="number">7</span>], b=b[<span class="number">7</span>], out=out[<span class="number">7</span>]);</span><br><span class="line">    Or (a=a[<span class="number">8</span>], b=b[<span class="number">8</span>], out=out[<span class="number">8</span>]);</span><br><span class="line">    Or (a=a[<span class="number">9</span>], b=b[<span class="number">9</span>], out=out[<span class="number">9</span>]);</span><br><span class="line">    Or (a=a[<span class="number">10</span>], b=b[<span class="number">10</span>], out=out[<span class="number">10</span>]);</span><br><span class="line">    Or (a=a[<span class="number">11</span>], b=b[<span class="number">11</span>], out=out[<span class="number">11</span>]);</span><br><span class="line">    Or (a=a[<span class="number">12</span>], b=b[<span class="number">12</span>], out=out[<span class="number">12</span>]);</span><br><span class="line">    Or (a=a[<span class="number">13</span>], b=b[<span class="number">13</span>], out=out[<span class="number">13</span>]);</span><br><span class="line">    Or (a=a[<span class="number">14</span>], b=b[<span class="number">14</span>], out=out[<span class="number">14</span>]);</span><br><span class="line">    Or (a=a[<span class="number">15</span>], b=b[<span class="number">15</span>], out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/01/Xor.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Exclusive-or gate:</span></span><br><span class="line"><span class="comment"> * out = not (a == b)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Xor &#123;</span><br><span class="line">    IN a, b;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Not (in=a, out=nota);</span><br><span class="line">    Not (in=b, out=notb);</span><br><span class="line">    And (a=a, b=notb, out=w1);</span><br><span class="line">    And (a=nota, b=b, out=w2);</span><br><span class="line">    Or  (a=w1, b=w2, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Project-2-boolean-arithmetic"><a href="#Project-2-boolean-arithmetic" class="headerlink" title="Project 2: boolean arithmetic"></a>Project 2: boolean arithmetic</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/02/Adder16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Adds two 16-bit values.</span></span><br><span class="line"><span class="comment"> * The most significant carry bit is ignored.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Add16 &#123;</span><br><span class="line">    IN a[<span class="number">16</span>], b[<span class="number">16</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">   <span class="comment">// Put you code here:</span></span><br><span class="line">   FullAdder (a=a[<span class="number">0</span>], b=b[<span class="number">0</span>], c=<span class="literal">false</span>, sum=out[<span class="number">0</span>], carry=carry15);</span><br><span class="line">   FullAdder (a=a[<span class="number">1</span>], b=b[<span class="number">1</span>], c=carry15, sum=out[<span class="number">1</span>], carry=carry14);</span><br><span class="line">   FullAdder (a=a[<span class="number">2</span>], b=b[<span class="number">2</span>], c=carry14, sum=out[<span class="number">2</span>], carry=carry13);</span><br><span class="line">   FullAdder (a=a[<span class="number">3</span>], b=b[<span class="number">3</span>], c=carry13, sum=out[<span class="number">3</span>], carry=carry12);</span><br><span class="line">   FullAdder (a=a[<span class="number">4</span>], b=b[<span class="number">4</span>], c=carry12, sum=out[<span class="number">4</span>], carry=carry11);</span><br><span class="line">   FullAdder (a=a[<span class="number">5</span>], b=b[<span class="number">5</span>], c=carry11, sum=out[<span class="number">5</span>], carry=carry10);</span><br><span class="line">   FullAdder (a=a[<span class="number">6</span>], b=b[<span class="number">6</span>], c=carry10, sum=out[<span class="number">6</span>], carry=carry9);</span><br><span class="line">   FullAdder (a=a[<span class="number">7</span>], b=b[<span class="number">7</span>], c=carry9, sum=out[<span class="number">7</span>], carry=carry8);</span><br><span class="line">   FullAdder (a=a[<span class="number">8</span>], b=b[<span class="number">8</span>], c=carry8, sum=out[<span class="number">8</span>], carry=carry7);</span><br><span class="line">   FullAdder (a=a[<span class="number">9</span>], b=b[<span class="number">9</span>], c=carry7, sum=out[<span class="number">9</span>], carry=carry6);</span><br><span class="line">   FullAdder (a=a[<span class="number">10</span>], b=b[<span class="number">10</span>], c=carry6, sum=out[<span class="number">10</span>], carry=carry5);</span><br><span class="line">   FullAdder (a=a[<span class="number">11</span>], b=b[<span class="number">11</span>], c=carry5, sum=out[<span class="number">11</span>], carry=carry4);</span><br><span class="line">   FullAdder (a=a[<span class="number">12</span>], b=b[<span class="number">12</span>], c=carry4, sum=out[<span class="number">12</span>], carry=carry3);</span><br><span class="line">   FullAdder (a=a[<span class="number">13</span>], b=b[<span class="number">13</span>], c=carry3, sum=out[<span class="number">13</span>], carry=carry2);</span><br><span class="line">   FullAdder (a=a[<span class="number">14</span>], b=b[<span class="number">14</span>], c=carry2, sum=out[<span class="number">14</span>], carry=carry1);</span><br><span class="line">   FullAdder (a=a[<span class="number">15</span>], b=b[<span class="number">15</span>], c=carry1, sum=out[<span class="number">15</span>], carry=carry0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/02/ALU.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The ALU (Arithmetic Logic Unit).</span></span><br><span class="line"><span class="comment"> * Computes one of the following functions:</span></span><br><span class="line"><span class="comment"> * x+y, x-y, y-x, 0, 1, -1, x, y, -x, -y, !x, !y,</span></span><br><span class="line"><span class="comment"> * x+1, y+1, x-1, y-1, x&amp;y, x|y on two 16-bit inputs,</span></span><br><span class="line"><span class="comment"> * according to 6 input bits denoted zx,nx,zy,ny,f,no.</span></span><br><span class="line"><span class="comment"> * In addition, the ALU computes two 1-bit outputs:</span></span><br><span class="line"><span class="comment"> * if the ALU output == 0, zr is set to 1; otherwise zr is set to 0;</span></span><br><span class="line"><span class="comment"> * if the ALU output &lt; 0, ng is set to 1; otherwise ng is set to 0.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Implementation: the ALU logic manipulates the x and y inputs</span></span><br><span class="line"><span class="comment">// and operates on the resulting values, as follows:</span></span><br><span class="line"><span class="comment">// if (zx == 1) set x = 0        // 16-bit constant</span></span><br><span class="line"><span class="comment">// if (nx == 1) set x = !x       // bitwise not</span></span><br><span class="line"><span class="comment">// if (zy == 1) set y = 0        // 16-bit constant</span></span><br><span class="line"><span class="comment">// if (ny == 1) set y = !y       // bitwise not</span></span><br><span class="line"><span class="comment">// if (f == 1)  set out = x + y  // integer 2's complement addition</span></span><br><span class="line"><span class="comment">// if (f == 0)  set out = x &amp; y  // bitwise and</span></span><br><span class="line"><span class="comment">// if (no == 1) set out = !out   // bitwise not</span></span><br><span class="line"><span class="comment">// if (out == 0) set zr = 1</span></span><br><span class="line"><span class="comment">// if (out &lt; 0) set ng = 1</span></span><br><span class="line"></span><br><span class="line">CHIP ALU &#123;</span><br><span class="line">    IN</span><br><span class="line">        x[<span class="number">16</span>], y[<span class="number">16</span>],  <span class="comment">// 16-bit inputs</span></span><br><span class="line">        zx, <span class="comment">// zero the x input?</span></span><br><span class="line">        nx, <span class="comment">// negate the x input?</span></span><br><span class="line">        zy, <span class="comment">// zero the y input?</span></span><br><span class="line">        ny, <span class="comment">// negate the y input?</span></span><br><span class="line">        f,  <span class="comment">// compute out = x + y (if 1) or x &amp; y (if 0)</span></span><br><span class="line">        no; <span class="comment">// negate the out output?</span></span><br><span class="line"></span><br><span class="line">    OUT</span><br><span class="line">        out[<span class="number">16</span>], <span class="comment">// 16-bit output</span></span><br><span class="line">        zr, <span class="comment">// 1 if (out == 0), 0 otherwise</span></span><br><span class="line">        ng; <span class="comment">// 1 if (out &lt; 0),  0 otherwise</span></span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put you code here:</span></span><br><span class="line">    Not16 (in=x, out=notx);</span><br><span class="line">    Mux4Way16 (a=x, b=notx, c=<span class="literal">false</span>, d=<span class="literal">true</span>, sel[<span class="number">1</span>]=zx, sel[<span class="number">0</span>]=nx, out=outx);</span><br><span class="line">    Not16 (in=y, out=noty);</span><br><span class="line">    Mux4Way16 (a=y, b=noty, c=<span class="literal">false</span>, d=<span class="literal">true</span>, sel[<span class="number">1</span>]=zy, sel[<span class="number">0</span>]=ny, out=outy);</span><br><span class="line">    And16 (a=outx, b=outy, out=outAnd);</span><br><span class="line">    Add16 (a=outx, b=outy, out=outAdd);</span><br><span class="line">    Mux16 (a=outAnd, b=outAdd, sel=f, out=outsel1);</span><br><span class="line">    Not16 (in=outsel1, out=outsel2);</span><br><span class="line">    Mux16 (a=outsel1, b=outsel2, sel=no, out=out, out[<span class="number">15</span>]=sign, out[<span class="number">15</span>]=out15, out[<span class="number">14</span>]=out14,</span><br><span class="line">           out[<span class="number">13</span>]=out13, out[<span class="number">12</span>]=out12, out[<span class="number">11</span>]=out11, out[<span class="number">10</span>]=out10, out[<span class="number">9</span>]=out9, out[<span class="number">8</span>]=out8,</span><br><span class="line">           out[<span class="number">7</span>]=out7, out[<span class="number">6</span>]=out6, out[<span class="number">5</span>]=out5, out[<span class="number">4</span>]=out4, out[<span class="number">3</span>]=out3, out[<span class="number">2</span>]=out2, out[<span class="number">1</span>]=out1,</span><br><span class="line">           out[<span class="number">0</span>]=out0);</span><br><span class="line">    Or (a=sign, b=<span class="literal">false</span>, out=ng);</span><br><span class="line">    Or (a=out0, b=out1, out=and1);</span><br><span class="line">    Or (a=and1, b=out2, out=and2);</span><br><span class="line">    Or (a=and2, b=out3, out=and3);</span><br><span class="line">    Or (a=and3, b=out4, out=and4);</span><br><span class="line">    Or (a=and4, b=out5, out=and5);</span><br><span class="line">    Or (a=and5, b=out6, out=and6);</span><br><span class="line">    Or (a=and6, b=out7, out=and7);</span><br><span class="line">    Or (a=and7, b=out8, out=and8);</span><br><span class="line">    Or (a=and8, b=out9, out=and9);</span><br><span class="line">    Or (a=and9, b=out10, out=and10);</span><br><span class="line">    Or (a=and10, b=out11, out=and11);</span><br><span class="line">    Or (a=and11, b=out12, out=and12);</span><br><span class="line">    Or (a=and12, b=out13, out=and13);</span><br><span class="line">    Or (a=and13, b=out14, out=and14);</span><br><span class="line">    Or (a=and14, b=out15, out=and15);</span><br><span class="line">    Not (in=and15, out=zr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/02/FullAdder.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Computes the sum of three bits.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP FullAdder &#123;</span><br><span class="line">    IN a, b, c;  <span class="comment">// 1-bit inputs</span></span><br><span class="line">    OUT sum,     <span class="comment">// Right bit of a + b + c</span></span><br><span class="line">        carry;   <span class="comment">// Left bit of a + b + c</span></span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put you code here:</span></span><br><span class="line">    HalfAdder (a=a, b=b, carry=carry1, sum=sum1);</span><br><span class="line">    HalfAdder (a=sum1, b=c, carry=carry2, sum=sum);</span><br><span class="line">    Or (a=carry1, b=carry2, out=carry);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/02/FullAdder.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Computes the sum of three bits.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP FullAdder &#123;</span><br><span class="line">    IN a, b, c;  <span class="comment">// 1-bit inputs</span></span><br><span class="line">    OUT sum,     <span class="comment">// Right bit of a + b + c</span></span><br><span class="line">        carry;   <span class="comment">// Left bit of a + b + c</span></span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put you code here:</span></span><br><span class="line">    HalfAdder (a=a, b=b, carry=carry1, sum=sum1);</span><br><span class="line">    HalfAdder (a=sum1, b=c, carry=carry2, sum=sum);</span><br><span class="line">    Or (a=carry1, b=carry2, out=carry);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/02/Inc16.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16-bit incrementer:</span></span><br><span class="line"><span class="comment"> * out = in + 1 (arithmetic addition)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Inc16 &#123;</span><br><span class="line">    IN in[<span class="number">16</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">   <span class="comment">// Put you code here:</span></span><br><span class="line">   Add16 (a=in, b[<span class="number">0</span>]=<span class="literal">true</span>, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Project-3-sequential-logic"><a href="#Project-3-sequential-logic" class="headerlink" title="Project 3: sequential logic"></a>Project 3: sequential logic</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/a/Bit.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1-bit register:</span></span><br><span class="line"><span class="comment"> * If load[t] == 1 then out[t+1] = in[t]</span></span><br><span class="line"><span class="comment"> *                 else out does not change (out[t+1] = out[t])</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN in, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Mux (a=dffOut, b=in, sel=load, out=muxOut);</span><br><span class="line">    DFF (in=muxOut, out=out, out=dffOut);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/a/PC.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A 16-bit counter with load and reset control bits.</span></span><br><span class="line"><span class="comment"> * if      (reset[t] == 1) out[t+1] = 0</span></span><br><span class="line"><span class="comment"> * else if (load[t] == 1)  out[t+1] = in[t]</span></span><br><span class="line"><span class="comment"> * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)</span></span><br><span class="line"><span class="comment"> * else                    out[t+1] = out[t]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP PC &#123;</span><br><span class="line">    IN in[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Inc16 (in=rOut, out=incOut);</span><br><span class="line">    Mux16 (a=in, b=incOut, sel=inc, out=muxOut1);</span><br><span class="line">    Mux16 (a=muxOut1, b=in, sel=load, out=muxOut2);</span><br><span class="line">    And16 (a=in, b=<span class="literal">false</span>, out=andOut);</span><br><span class="line">    Mux16 (a=muxOut2, b=andOut, sel=reset, out=muxOut3);</span><br><span class="line">    Register (in=muxOut3, load=<span class="literal">true</span>, out=out, out=rOut);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/b/RAM4K.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Memory of 4K registers, each 16 bit-wide. Out holds the value</span></span><br><span class="line"><span class="comment"> * stored at the memory location specified by address. If load==1, then</span></span><br><span class="line"><span class="comment"> * the in value is loaded into the memory location specified by address</span></span><br><span class="line"><span class="comment"> * (the loaded value will be emitted to out from the next time step onward).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP RAM4K &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load, address[<span class="number">12</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux8Way (in=load, sel[<span class="number">2</span>]=address[<span class="number">11</span>], sel[<span class="number">1</span>]=address[<span class="number">10</span>], sel[<span class="number">0</span>]=address[<span class="number">9</span>],</span><br><span class="line">              a=out1, b=out2, c=out3, d=out4, e=out5, f=out6, g=out7, h=out8);</span><br><span class="line">    RAM512 (in=in, load=out1, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR1);</span><br><span class="line">    RAM512 (in=in, load=out2, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR2);</span><br><span class="line">    RAM512 (in=in, load=out3, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR3);</span><br><span class="line">    RAM512 (in=in, load=out4, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR4);</span><br><span class="line">    RAM512 (in=in, load=out5, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR5);</span><br><span class="line">    RAM512 (in=in, load=out6, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR6);</span><br><span class="line">    RAM512 (in=in, load=out7, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR7);</span><br><span class="line">    RAM512 (in=in, load=out8, address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>],</span><br><span class="line">            address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>],</span><br><span class="line">            address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR8);</span><br><span class="line">    Mux8Way16 (a=outR1, b=outR2, c=outR3, d=outR4, e=outR5, f=outR6, g=outR7, h=outR8,</span><br><span class="line">               sel[<span class="number">2</span>]=address[<span class="number">11</span>], sel[<span class="number">1</span>]=address[<span class="number">10</span>], sel[<span class="number">0</span>]=address[<span class="number">9</span>], out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/a/RAM8.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Memory of 8 registers, each 16 bit-wide. Out holds the value</span></span><br><span class="line"><span class="comment"> * stored at the memory location specified by address. If load==1, then</span></span><br><span class="line"><span class="comment"> * the in value is loaded into the memory location specified by address</span></span><br><span class="line"><span class="comment"> * (the loaded value will be emitted to out from the next time step onward).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux8Way (in=load, sel=address, a=out1, b=out2, c=out3, d=out4, e=out5, f=out6, g=out7, h=out8);</span><br><span class="line">    Register (in=in, load=out1, out=outR1);</span><br><span class="line">    Register (in=in, load=out2, out=outR2);</span><br><span class="line">    Register (in=in, load=out3, out=outR3);</span><br><span class="line">    Register (in=in, load=out4, out=outR4);</span><br><span class="line">    Register (in=in, load=out5, out=outR5);</span><br><span class="line">    Register (in=in, load=out6, out=outR6);</span><br><span class="line">    Register (in=in, load=out7, out=outR7);</span><br><span class="line">    Register (in=in, load=out8, out=outR8);</span><br><span class="line">    Mux8Way16 (a=outR1, b=outR2, c=outR3, d=outR4, e=outR5, f=outR6, g=outR7, h=outR8, sel=address, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/b/RAM16K.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Memory of 16K registers, each 16 bit-wide. Out holds the value</span></span><br><span class="line"><span class="comment"> * stored at the memory location specified by address. If load==1, then</span></span><br><span class="line"><span class="comment"> * the in value is loaded into the memory location specified by address</span></span><br><span class="line"><span class="comment"> * (the loaded value will be emitted to out from the next time step onward).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP RAM16K &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load, address[<span class="number">14</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux4Way (in=load, sel[<span class="number">1</span>]=address[<span class="number">13</span>], sel[<span class="number">0</span>]=address[<span class="number">12</span>], a=out1, b=out2, c=out3, d=out4);</span><br><span class="line">    RAM4K (in=in, load=out1, address[<span class="number">11</span>]=address[<span class="number">11</span>], address[<span class="number">10</span>]=address[<span class="number">10</span>], address[<span class="number">9</span>]=address[<span class="number">9</span>],</span><br><span class="line">           address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>], address[<span class="number">5</span>]=address[<span class="number">5</span>],</span><br><span class="line">           address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>],</span><br><span class="line">           address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR1);</span><br><span class="line">    RAM4K (in=in, load=out2, address[<span class="number">11</span>]=address[<span class="number">11</span>], address[<span class="number">10</span>]=address[<span class="number">10</span>], address[<span class="number">9</span>]=address[<span class="number">9</span>],</span><br><span class="line">           address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>], address[<span class="number">5</span>]=address[<span class="number">5</span>],</span><br><span class="line">           address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>],</span><br><span class="line">           address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR2);</span><br><span class="line">    RAM4K (in=in, load=out3, address[<span class="number">11</span>]=address[<span class="number">11</span>], address[<span class="number">10</span>]=address[<span class="number">10</span>], address[<span class="number">9</span>]=address[<span class="number">9</span>],</span><br><span class="line">           address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>], address[<span class="number">5</span>]=address[<span class="number">5</span>],</span><br><span class="line">           address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>],</span><br><span class="line">           address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR3);</span><br><span class="line">    RAM4K (in=in, load=out4, address[<span class="number">11</span>]=address[<span class="number">11</span>], address[<span class="number">10</span>]=address[<span class="number">10</span>], address[<span class="number">9</span>]=address[<span class="number">9</span>],</span><br><span class="line">           address[<span class="number">8</span>]=address[<span class="number">8</span>], address[<span class="number">7</span>]=address[<span class="number">7</span>], address[<span class="number">6</span>]=address[<span class="number">6</span>], address[<span class="number">5</span>]=address[<span class="number">5</span>],</span><br><span class="line">           address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>], address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>],</span><br><span class="line">           address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR4);</span><br><span class="line">    Mux4Way16 (a=outR1, b=outR2, c=outR3, d=outR4, sel[<span class="number">1</span>]=address[<span class="number">13</span>], sel[<span class="number">0</span>]=address[<span class="number">12</span>], out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/a/RAM64.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Memory of 64 registers, each 16 bit-wide. Out holds the value</span></span><br><span class="line"><span class="comment"> * stored at the memory location specified by address. If load==1, then</span></span><br><span class="line"><span class="comment"> * the in value is loaded into the memory location specified by address</span></span><br><span class="line"><span class="comment"> * (the loaded value will be emitted to out from the next time step onward).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP RAM64 &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load, address[<span class="number">6</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux8Way (in=load, sel[<span class="number">2</span>]=address[<span class="number">5</span>], sel[<span class="number">1</span>]=address[<span class="number">4</span>], sel[<span class="number">0</span>]=address[<span class="number">3</span>], a=out1, b=out2, c=out3,</span><br><span class="line">              d=out4, e=out5, f=out6, g=out7, h=out8);</span><br><span class="line">    RAM8 (in=in, load=out1, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR1);</span><br><span class="line">    RAM8 (in=in, load=out2, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR2);</span><br><span class="line">    RAM8 (in=in, load=out3, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR3);</span><br><span class="line">    RAM8 (in=in, load=out4, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR4);</span><br><span class="line">    RAM8 (in=in, load=out5, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR5);</span><br><span class="line">    RAM8 (in=in, load=out6, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR6);</span><br><span class="line">    RAM8 (in=in, load=out7, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR7);</span><br><span class="line">    RAM8 (in=in, load=out8, address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR8);</span><br><span class="line">    Mux8Way16 (a=outR1, b=outR2, c=outR3, d=outR4, e=outR5, f=outR6, g=outR7, h=outR8, sel[<span class="number">2</span>]=address[<span class="number">5</span>],</span><br><span class="line">               sel[<span class="number">1</span>]=address[<span class="number">4</span>], sel[<span class="number">0</span>]=address[<span class="number">3</span>], out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of the materials accompanying the book</span></span><br><span class="line"><span class="comment">// "The Elements of Computing Systems" by Nisan and Schocken,</span></span><br><span class="line"><span class="comment">// MIT Press. Book site: www.idc.ac.il/tecs</span></span><br><span class="line"><span class="comment">// File name: projects/03/b/RAM512.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Memory of 512 registers, each 16 bit-wide. Out holds the value</span></span><br><span class="line"><span class="comment"> * stored at the memory location specified by address. If load==1, then</span></span><br><span class="line"><span class="comment"> * the in value is loaded into the memory location specified by address</span></span><br><span class="line"><span class="comment"> * (the loaded value will be emitted to out from the next time step onward).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP RAM512 &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load, address[<span class="number">9</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    DMux8Way (in=load, sel[<span class="number">2</span>]=address[<span class="number">8</span>], sel[<span class="number">1</span>]=address[<span class="number">7</span>], sel[<span class="number">0</span>]=address[<span class="number">6</span>], a=out1, b=out2, c=out3,</span><br><span class="line">              d=out4, e=out5, f=out6, g=out7, h=out8);</span><br><span class="line">    RAM64 (in=in, load=out1, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR1);</span><br><span class="line">    RAM64 (in=in, load=out2, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR2);</span><br><span class="line">    RAM64 (in=in, load=out3, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR3);</span><br><span class="line">    RAM64 (in=in, load=out4, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR4);</span><br><span class="line">    RAM64 (in=in, load=out5, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR5);</span><br><span class="line">    RAM64 (in=in, load=out6, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR6);</span><br><span class="line">    RAM64 (in=in, load=out7, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR7);</span><br><span class="line">    RAM64 (in=in, load=out8, address[<span class="number">5</span>]=address[<span class="number">5</span>], address[<span class="number">4</span>]=address[<span class="number">4</span>], address[<span class="number">3</span>]=address[<span class="number">3</span>],</span><br><span class="line">           address[<span class="number">2</span>]=address[<span class="number">2</span>], address[<span class="number">1</span>]=address[<span class="number">1</span>], address[<span class="number">0</span>]=address[<span class="number">0</span>], out=outR8);</span><br><span class="line">    Mux8Way16 (a=outR1, b=outR2, c=outR3, d=outR4, e=outR5, f=outR6, g=outR7, h=outR8, sel[<span class="number">2</span>]=address[<span class="number">8</span>],</span><br><span class="line">               sel[<span class="number">1</span>]=address[<span class="number">7</span>], sel[<span class="number">0</span>]=address[<span class="number">6</span>], out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/03/a/Register.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16-bit register:</span></span><br><span class="line"><span class="comment"> * If load[t] == 1 then out[t+1] = in[t]</span></span><br><span class="line"><span class="comment"> * else out does not change</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    Bit (in=in[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit (in=in[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Project-5-computer-architecture"><a href="#Project-5-computer-architecture" class="headerlink" title="Project 5: computer architecture"></a>Project 5: computer architecture</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/05/CPU.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The Hack CPU (Central Processing unit), consisting of an ALU,</span></span><br><span class="line"><span class="comment"> * two registers named A and D, and a program counter named PC.</span></span><br><span class="line"><span class="comment"> * The CPU is designed to fetch and execute instructions written in</span></span><br><span class="line"><span class="comment"> * the Hack machine language. In particular, functions as follows:</span></span><br><span class="line"><span class="comment"> * Executes the inputted instruction according to the Hack machine</span></span><br><span class="line"><span class="comment"> * language specification. The D and A in the language specification</span></span><br><span class="line"><span class="comment"> * refer to CPU-resident registers, while M refers to the external</span></span><br><span class="line"><span class="comment"> * memory location addressed by A, i.e. to Memory[A]. The inM input</span></span><br><span class="line"><span class="comment"> * holds the value of this location. If the current instruction needs</span></span><br><span class="line"><span class="comment"> * to write a value to M, the value is placed in outM, the address</span></span><br><span class="line"><span class="comment"> * of the target location is placed in the addressM output, and the</span></span><br><span class="line"><span class="comment"> * writeM control bit is asserted. (When writeM==0, any value may</span></span><br><span class="line"><span class="comment"> * appear in outM). The outM and writeM outputs are combinational:</span></span><br><span class="line"><span class="comment"> * they are affected instantaneously by the execution of the current</span></span><br><span class="line"><span class="comment"> * instruction. The addressM and pc outputs are clocked: although they</span></span><br><span class="line"><span class="comment"> * are affected by the execution of the current instruction, they commit</span></span><br><span class="line"><span class="comment"> * to their new values only in the next time step. If reset==1 then the</span></span><br><span class="line"><span class="comment"> * CPU jumps to address 0 (i.e. pc is set to 0 in next time step) rather</span></span><br><span class="line"><span class="comment"> * than to the address resulting from executing the current instruction.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP CPU &#123;</span><br><span class="line"></span><br><span class="line">    IN  inM[<span class="number">16</span>],         <span class="comment">// M value input  (M = contents of RAM[A])</span></span><br><span class="line">        instruction[<span class="number">16</span>], <span class="comment">// Instruction for execution</span></span><br><span class="line">        reset;           <span class="comment">// Signals whether to re-start the current</span></span><br><span class="line">                         <span class="comment">// program (reset==1) or continue executing</span></span><br><span class="line">                         <span class="comment">// the current program (reset==0).</span></span><br><span class="line"></span><br><span class="line">    OUT outM[<span class="number">16</span>],        <span class="comment">// M value output</span></span><br><span class="line">        writeM,          <span class="comment">// Write to M?</span></span><br><span class="line">        addressM[<span class="number">15</span>],    <span class="comment">// Address in data memory (of M)</span></span><br><span class="line">        pc[<span class="number">15</span>];          <span class="comment">// address of next instruction</span></span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    <span class="comment">// PC block.</span></span><br><span class="line">    And (a=instruction[<span class="number">2</span>], b=aluNg, out=pcAndOut1);</span><br><span class="line">    And (a=instruction[<span class="number">1</span>], b=aluZr, out=pcAndOut2);</span><br><span class="line">    Not (in=aluNg, out=pcNotOut1);</span><br><span class="line">    Not (in=aluZr, out=pcNotOut2);</span><br><span class="line">    And (a=instruction[<span class="number">0</span>], b=pcNotOut1, out=pcAndOut3);</span><br><span class="line">    And (a=pcAndOut3, b=pcNotOut2, out=pcAndOut4);</span><br><span class="line">    Or (a=pcAndOut1, b=pcAndOut2, out=pcOrOut1);</span><br><span class="line">    Or (a=pcOrOut1, b=pcAndOut4, out=pcOrOut2);</span><br><span class="line">    And (a=instruction[<span class="number">15</span>], b=pcOrOut2, out=pcLoad);</span><br><span class="line">    PC (in=aRegOut, load= pcLoad, inc=<span class="literal">true</span>, reset= reset, out[<span class="number">0.</span><span class="number">.14</span>]=pc);</span><br><span class="line">    <span class="comment">// Mux16_1 block.</span></span><br><span class="line">    Mux16 (a=instruction, b=aluOut, sel=instruction[<span class="number">15</span>], out=mux16Out1);</span><br><span class="line">    <span class="comment">// A register block.</span></span><br><span class="line">    Not (in=instruction[<span class="number">15</span>], out=aRegNotOut1);</span><br><span class="line">    And (a=instruction[<span class="number">15</span>], b=instruction[<span class="number">5</span>], out=aRegAndOut1);</span><br><span class="line">    Or (a=aRegNotOut1, b=aRegAndOut1, out=aRegLoad);</span><br><span class="line">    ARegister (in=mux16Out1, load=aRegLoad, out=aRegOut, out[<span class="number">0.</span><span class="number">.14</span>]=addressM);</span><br><span class="line">    <span class="comment">// D register block.</span></span><br><span class="line">    And (a=instruction[<span class="number">15</span>], b=instruction[<span class="number">4</span>], out=dRegLoad);</span><br><span class="line">    DRegister (in=aluOut, load=dRegLoad, out=dRegOut);</span><br><span class="line">    <span class="comment">// Mux16_2 block.</span></span><br><span class="line">    Mux16 (a=aRegOut, b=inM, sel=instruction[<span class="number">12</span>], out=mux16Out2);</span><br><span class="line">    <span class="comment">// ALU block.</span></span><br><span class="line">    ALU(x=dRegOut, y=mux16Out2, zx=instruction[<span class="number">11</span>], nx=instruction[<span class="number">10</span>], zy=instruction[<span class="number">9</span>], ny=instruction[<span class="number">8</span>],</span><br><span class="line">        f=instruction[<span class="number">7</span>], no=instruction[<span class="number">6</span>], out=aluOut, zr=aluZr, ng=aluNg, out=outM);</span><br><span class="line">    <span class="comment">// writeM output block.</span></span><br><span class="line">    Not (in=instruction[<span class="number">9</span>], out=wmNotOut1);</span><br><span class="line">    And (a=instruction[<span class="number">12</span>], b=instruction[<span class="number">3</span>], out=wmAndOut1);</span><br><span class="line">    Not (in=instruction[<span class="number">12</span>], out=wmNotOut2);</span><br><span class="line">    Or (a=wmNotOut2, b=wmAndOut1, out=wmOrOut1);</span><br><span class="line">    And (a=wmOrOut1, b=instruction[<span class="number">3</span>], out=wmAndOut2);</span><br><span class="line">    And (a=wmAndOut2, b=instruction[<span class="number">15</span>], out=writeM);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/05/Memory.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The complete address space of the Hack computer's memory,</span></span><br><span class="line"><span class="comment"> * including RAM and memory-mapped I/O.</span></span><br><span class="line"><span class="comment"> * The chip facilitates read and write operations, as follows:</span></span><br><span class="line"><span class="comment"> *     Read:  out(t) = Memory[address(t)](t)</span></span><br><span class="line"><span class="comment"> *     Write: if load(t-1) then Memory[address(t-1)](t) = in(t-1)</span></span><br><span class="line"><span class="comment"> * In words: the chip always outputs the value stored at the memory</span></span><br><span class="line"><span class="comment"> * location specified by address. If load==1, the in value is loaded</span></span><br><span class="line"><span class="comment"> * into the memory location specified by address. This value becomes</span></span><br><span class="line"><span class="comment"> * available through the out output from the next time step onward.</span></span><br><span class="line"><span class="comment"> * Address space rules:</span></span><br><span class="line"><span class="comment"> * Only the upper 16K+8K+1 words of the Memory chip are used.</span></span><br><span class="line"><span class="comment"> * Access to address&gt;0x6000 is invalid. Access to any address in</span></span><br><span class="line"><span class="comment"> * the range 0x4000-0x5FFF results in accessing the screen memory</span></span><br><span class="line"><span class="comment"> * map. Access to address 0x6000 results in accessing the keyboard</span></span><br><span class="line"><span class="comment"> * memory map. The behavior in these addresses is described in the</span></span><br><span class="line"><span class="comment"> * Screen and Keyboard chip specifications given in the book.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Memory &#123;</span><br><span class="line">    IN in[<span class="number">16</span>], load, address[<span class="number">15</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    And (a=address[<span class="number">13</span>], b=<span class="literal">true</span>, out=andOut1);</span><br><span class="line">    And (a=address[<span class="number">14</span>], b=<span class="literal">true</span>, out=andOut2);</span><br><span class="line">    Not (in=andOut1, out=notOut1);</span><br><span class="line">    Not (in=andOut2, out=notOut2);</span><br><span class="line">    <span class="comment">// RAM</span></span><br><span class="line">    And (a=<span class="literal">true</span>, b=notOut2, out=ramAnd1);</span><br><span class="line">    And (a=load, b=ramAnd1, out=ramLoad);</span><br><span class="line">    RAM16K (in=in, load=ramLoad, address=address[<span class="number">0.</span><span class="number">.13</span>], out=ramOut);</span><br><span class="line">    And16 (a[<span class="number">0</span>]=ramAnd1, a[<span class="number">1</span>]=ramAnd1, a[<span class="number">2</span>]=ramAnd1, a[<span class="number">3</span>]=ramAnd1, a[<span class="number">4</span>]=ramAnd1, a[<span class="number">5</span>]=ramAnd1, a[<span class="number">6</span>]=ramAnd1,</span><br><span class="line">          a[<span class="number">7</span>]=ramAnd1, a[<span class="number">8</span>]=ramAnd1, a[<span class="number">9</span>]=ramAnd1, a[<span class="number">10</span>]=ramAnd1, a[<span class="number">11</span>]=ramAnd1, a[<span class="number">12</span>]=ramAnd1, a[<span class="number">13</span>]=ramAnd1,</span><br><span class="line">          a[<span class="number">14</span>]=ramAnd1, a[<span class="number">15</span>]=ramAnd1, b=ramOut, out=ramFinal);</span><br><span class="line">    <span class="comment">// SCREEN</span></span><br><span class="line">    And (a=notOut1, b=andOut2, out=scAnd1);</span><br><span class="line">    And (a=load, b=scAnd1, out=scLoad);</span><br><span class="line">    And16 (a[<span class="number">0</span>]=scAnd1, a[<span class="number">1</span>]=scAnd1, a[<span class="number">2</span>]=scAnd1, a[<span class="number">3</span>]=scAnd1, a[<span class="number">4</span>]=scAnd1, a[<span class="number">5</span>]=scAnd1, a[<span class="number">6</span>]=scAnd1,</span><br><span class="line">           a[<span class="number">7</span>]=scAnd1, a[<span class="number">8</span>]=scAnd1, a[<span class="number">9</span>]=scAnd1, a[<span class="number">10</span>]=scAnd1, a[<span class="number">11</span>]=scAnd1, a[<span class="number">12</span>]=scAnd1, a[<span class="number">13</span>]=scAnd1,</span><br><span class="line">           a[<span class="number">14</span>]=scAnd1, a[<span class="number">15</span>]=scAnd1, b=scOut, out=scFinal);</span><br><span class="line">    Screen (in=in, load=scLoad, address=address[<span class="number">0.</span><span class="number">.12</span>], out=scOut);</span><br><span class="line">    <span class="comment">// KEYBOARD</span></span><br><span class="line">    Keyboard (out=kbOut);</span><br><span class="line">    And (a=andOut1, b=andOut2, out=kbAnd1);</span><br><span class="line">    And16 (a[<span class="number">0</span>]=kbAnd1, a[<span class="number">1</span>]=kbAnd1, a[<span class="number">2</span>]=kbAnd1, a[<span class="number">3</span>]=kbAnd1, a[<span class="number">4</span>]=kbAnd1, a[<span class="number">5</span>]=kbAnd1, a[<span class="number">6</span>]=kbAnd1,</span><br><span class="line">           a[<span class="number">7</span>]=kbAnd1, a[<span class="number">8</span>]=kbAnd1, a[<span class="number">9</span>]=kbAnd1, a[<span class="number">10</span>]=kbAnd1, a[<span class="number">11</span>]=kbAnd1, a[<span class="number">12</span>]=kbAnd1, a[<span class="number">13</span>]=kbAnd1,</span><br><span class="line">           a[<span class="number">14</span>]=kbAnd1, a[<span class="number">15</span>]=kbAnd1, b=kbOut, out=kbFinal);</span><br><span class="line">    <span class="comment">// OUTPUT</span></span><br><span class="line">    Or16 (a=ramFinal, b=scFinal, out=outFinal1);</span><br><span class="line">    Or16 (a=outFinal1, b=kbFinal, out=out);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This file is part of www.nand2tetris.org</span></span><br><span class="line"><span class="comment">// and the book "The Elements of Computing Systems"</span></span><br><span class="line"><span class="comment">// by Nisan and Schocken, MIT Press.</span></span><br><span class="line"><span class="comment">// File name: projects/05/Computer.hdl</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The HACK computer, including CPU, ROM and RAM.</span></span><br><span class="line"><span class="comment"> * When reset is 0, the program stored in the computer's ROM executes.</span></span><br><span class="line"><span class="comment"> * When reset is 1, the execution of the program restarts.</span></span><br><span class="line"><span class="comment"> * Thus, to start a program's execution, reset must be pushed "up" (1)</span></span><br><span class="line"><span class="comment"> * and "down" (0). From this point onward the user is at the mercy of</span></span><br><span class="line"><span class="comment"> * the software. In particular, depending on the program's code, the</span></span><br><span class="line"><span class="comment"> * screen may show some output and the user may be able to interact</span></span><br><span class="line"><span class="comment"> * with the computer via the keyboard.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">CHIP Computer &#123;</span><br><span class="line"></span><br><span class="line">    IN reset;</span><br><span class="line"></span><br><span class="line">    PARTS:</span><br><span class="line">    <span class="comment">// Put your code here:</span></span><br><span class="line">    ROM32K (address=pcOut, out=insOut);</span><br><span class="line">    CPU (inM=memOut, instruction=insOut, reset=reset, outM=cpuOutM, writeM=cpuWm, addressM=cpuAm, pc=pcOut);</span><br><span class="line">    Memory (in=cpuOutM, load=cpuWm, address=cpuAm, out=memOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/13/coding/c_kb/c-com-tech/" rel="next" title="Techniques in C and compiler">
+                <i class="fa fa-chevron-left"></i> Techniques in C and compiler
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/16/book-notes/books/linux-p-int/" rel="prev" title="The Linux programming interface">
+                The Linux programming interface <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/TonyZhaoyu/" title="GitHub &rarr; https://github.com/TonyZhaoyu/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nand2Tetris-reference-book"><span class="nav-text">Nand2Tetris reference book</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Project-1-boolean-logic"><span class="nav-text">Project 1: boolean logic</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Project-2-boolean-arithmetic"><span class="nav-text">Project 2: boolean arithmetic</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Project-3-sequential-logic"><span class="nav-text">Project 3: sequential logic</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Project-5-computer-architecture"><span class="nav-text">Project 5: computer architecture</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('Copy');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

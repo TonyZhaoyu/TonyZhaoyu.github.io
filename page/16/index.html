@@ -345,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/05/coding/c_coding/c-basics/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/05/coding/c_kb/c-basics/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tony">
@@ -365,7 +365,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/02/05/coding/c_coding/c-basics/" class="post-title-link" itemprop="url">Basics in C programming</a>
+                <a href="/2019/02/05/coding/c_kb/c-basics/" class="post-title-link" itemprop="url">C basics dig-in</a>
               
             
           </h1>
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-17 23:09:21" itemprop="dateModified" datetime="2020-03-17T23:09:21+08:00">2020-03-17</time>
+                <time title="Modified: 2020-04-21 12:00:35" itemprop="dateModified" datetime="2020-04-21T12:00:35+08:00">2020-04-21</time>
               
             
           </span>
@@ -432,13 +432,6 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/C-Knowledge-Base/" itemprop="url" rel="index"><span itemprop="name">C Knowledge Base</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/C-Knowledge-Base/Rethink-sizeof-and-strlen/" itemprop="url" rel="index"><span itemprop="name">Rethink sizeof and strlen</span></a></span>
 
                 
                 
@@ -510,11 +503,6 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strlen</span><span class="params">(<span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *p = s;</span><br><span class="line">    <span class="keyword">while</span> (*p != <span class="string">'\0'</span>)</span><br><span class="line">        p++;</span><br><span class="line">    <span class="keyword">return</span> p - s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>When using this function, please pay extra care about the string being passed to the method. Make sure the string ends with <em>‘\0’</em>, otherwise it may crash the program or return a nonsense value.</p>
-<hr>
-<h4 id="GCC-linker-example"><a href="#GCC-linker-example" class="headerlink" title="GCC - linker example"></a><strong>GCC - linker example</strong></h4><p>Link: <a href="https://stackoverflow.com/questions/8835108/how-to-specify-non-default-shared-library-path-in-gcc-linux-getting-error-whil" target="_blank" rel="noopener">https://stackoverflow.com/questions/8835108/how-to-specify-non-default-shared-library-path-in-gcc-linux-getting-error-whil</a></p>
-<p>For example, all the shared library and the test file are in the same folder.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -Wall test_basics.c -o <span class="built_in">test</span> -L./ -lcmocka -Wl,-rpath=./</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h4 id="When-const-meets-volatile"><a href="#When-const-meets-volatile" class="headerlink" title="When const meets volatile"></a><strong>When const meets volatile</strong></h4><p>The topic is elaborated using three sections: <em>const</em> usage, <em>volatile</em> usage and the mixture of <em>const</em> and <em>volatile</em> usage.</p>
 <p>When speaking of <em>const</em>, we could spontaneously relate to <em>read-only</em>. And it is true that a variable that is marked by const should not be changed elsewhere other than its definition. An example could be <code>const char *str = &quot;Hello World!&quot;</code>. However, there are some human-compilation tests regarding const, in which a few statements with const are to be validated. Considering the following cases:</p>
@@ -609,7 +597,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -652,7 +640,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -691,43 +679,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
